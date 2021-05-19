@@ -1,0 +1,60 @@
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  flex: 0.2;
+  background-color: white;
+  height: 100%;
+  margin-top: 10px;
+}
+.studyGroups {
+  flex: 0.5;
+}
+.sidebar__groups {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar__groups:hover {
+  background-color: white;
+  border-radius: 20px;
+  color: var(--special);
+  transition: color 100ms ease-out;
+}
+
+.sidebar__groups__header {
+  display: flex;
+  font-size: 24px;
+  align-items: center;
+}
+.sidebar__groups__add {
+  cursor: pointer;
+  flex: 1;
+}
+
+.sidebar__groups__add:hover {
+  color: var(--special);
+}
+
+.sidebar--active {
+  color: var(--special);
+}
+
+.feedOption {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.feedOption > .MuiSvgIcon-root {
+  padding: 20px;
+}
+
+.feedOption > h2 {
+  font-size: 20px;
+  flex: 1;
+}
+
+.sidebar__groups > .MuiAvatar-root {
+  margin: 20px;
+}

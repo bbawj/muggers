@@ -1,0 +1,27 @@
+.post {
+  display: flex;
+  align-items: flex-start;
+  background-color: white;
+  padding-bottom: 10px;
+  width: 100%;
+  padding: 5px;
+  border-bottom: 5px solid #f9f9f9;
+  border-radius: 6px;
+}
+.post__body {
+  flex: 1;
+  padding: 10px;
+}
+
+.post__avatar {
+  padding: 10px;
+}
+.post__headerText > h3 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.post__headerDescription {
+  margin-bottom: 10px;
+  font-size: 15px;
+}

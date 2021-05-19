@@ -1,0 +1,58 @@
+.home {
+  display: flex;
+  background: #f9f9f9;
+  font-family: Roboto;
+  font-style: normal;
+  margin-top: 10px;
+  margin-left: 120px;
+  flex-direction: column;
+}
+
+.homePic {
+  position: absolute;
+  flex: 0.4;
+  left: 51%;
+  top: 7%;
+  height: 90%;
+}
+.home h1 {
+  font-family: Roboto Slab;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 177.43px;
+}
+
+.home h2 {
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 32px;
+  padding-top: 50px;
+}
+
+.home p {
+  font-size: 25px;
+  line-height: 32px;
+}
+
+.homeContent {
+  padding-top: 50px;
+}
+
+.home button {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 36px;
+  align-items: center;
+  text-align: center;
+  color: #f9f9f9;
+  background-color: #ff7e67;
+  border: none;
+  border-radius: 7%;
+}
+
+.homeButtons {
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+  width: 20%;
+}

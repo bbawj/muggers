@@ -1,0 +1,12 @@
+.feed {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+.feed > h2 {
+  margin-top: 10px;
+}

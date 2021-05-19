@@ -1,0 +1,11 @@
+.dashboard--main {
+  display: flex;
+  height: 100vh;
+}
+
+.dashboard {
+  flex: 0.8;
+  margin-top: 10px;
+  margin-left: 40px;
+  margin-right: 40px;
+}

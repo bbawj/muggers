@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+}
+:root {
+  --special: #3f51b5;
+}
+
+.app {
+  background-color: #f9f9f9;
+  min-width: 500px;
+  font-family: Roboto;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
