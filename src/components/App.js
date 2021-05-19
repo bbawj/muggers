@@ -11,6 +11,7 @@ import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile";
 import Dashboard from "./Dashboard";
 import Username from "./Username";
+import { AppProvider } from "../contexts/AppContext";
 
 
 function App() {
@@ -22,9 +23,11 @@ function App() {
       <AuthProvider>
       <Header />
         <Switch>
-          <PrivateRoute exact path="/" component={Home}/>
+          <Route exact path="/" component={Home}/>
           <PrivateRoute path="/update-profile" component={UpdateProfile}/>
-          <PrivateRoute path="/dashboard" component={Dashboard}/>
+          <AppProvider>
+            <PrivateRoute path="/dashboard" component={Dashboard}/>
+          </AppProvider>
           <Route path="/username" component={Username}/>
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
