@@ -10,7 +10,6 @@ import GroupPage from "./GroupPage";
 function Dashboard(){
 
     const { groupinfo } = useApp()
-    console.log(groupinfo)
 
     return(
         <div className="dashboard--main">

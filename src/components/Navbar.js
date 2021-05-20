@@ -3,7 +3,7 @@ import "../Header.css"
 import { useAuth } from "../contexts/AuthContext"
 import {Link, useHistory} from "react-router-dom"
 
-function Header(){
+function Navbar(){
     const {currentUser, logout} = useAuth()
     const [error, setError] =useState("")
     const history = useHistory()
@@ -18,7 +18,7 @@ function Header(){
         }
     }
     return(
-        <div className="header">
+        <div className="navbar">
         <ul>
             <li style={{flex:8}}>muggers</li>
             {!currentUser && <li style={{flex:1}}><Link className="link" to="/signup">Sign Up</Link></li>}
@@ -32,4 +32,4 @@ function Header(){
 
 }
 
-export default Header;
+export default Navbar;

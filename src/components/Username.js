@@ -4,7 +4,6 @@ import "../Signup.css"
 import { useAuth, useUser } from "../contexts/AuthContext"
 import { Link, useHistory } from 'react-router-dom'
 import { db } from '../firebase'
-import Dashboard from './Dashboard'
 
 function Username() {
     const usernameRef = useRef()

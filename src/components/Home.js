@@ -4,7 +4,7 @@ import homePic from "../sticker.webp";
 
 function Home(){
     return(
-        <div>
+        <div className="home_container">
         <div className="home">
             <h1>muggers</h1>
             <h2>a collaborative study platform.</h2>

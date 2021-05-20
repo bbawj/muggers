@@ -3,6 +3,7 @@
 }
 :root {
   --special: #3f51b5;
+  --speed: 500ms;
 }
 
 .app {
@@ -12,4 +13,10 @@
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
