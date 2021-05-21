@@ -5,6 +5,7 @@ import "../Sidebar.css"
 import AddIcon from '@material-ui/icons/Add';
 import GroupIcon from '@material-ui/icons/Group';
 import { db } from "../firebase";
+import firebase from "firebase/app";
 
 function StudyGroupsOption(){
     const [studyGroups,setStudyGroups] = useState([]);
@@ -18,8 +19,10 @@ function StudyGroupsOption(){
             const newGroupRef = db.collection("groups").doc()
             newGroupRef.set({
                 group_name: newGroup,
-                group_id: newGroupRef.id
-            }).then( db.collection("users").doc(currentUser.uid).collection("groups").doc(newGroupRef.id).set({
+                owner_id: currentUser.uid
+            }).then(newGroupRef.update({
+                members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
+            })).then( db.collection("users").doc(currentUser.uid).collection("groups").doc(newGroupRef.id).set({
                 group_name: newGroup
             }) )
         }

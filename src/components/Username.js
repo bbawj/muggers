@@ -7,7 +7,7 @@ import { db } from '../firebase'
 function Username() {
     const usernameRef = useRef()
     const [currentUsernames, setCurrentUsernames] = useState([])
-    const { currentUser, username } = useAuth()
+    const { currentUser, updateProfile } = useAuth()
     const [avail, setAvail] = useState(false)
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -27,8 +27,8 @@ function Username() {
             const b = db.collection('users').doc(currentUser.uid).set({
                 username: inputUsername
             })
-
-            await Promise.all([a,b])
+            const c = updateProfile(inputUsername)
+            await Promise.all([a,b,c])
             alert("Username successfully set!")
             history.push("/dashboard")
          
@@ -57,11 +57,6 @@ function Username() {
         return unsubscribe
     }, [])
 
-    useEffect(() => {
-        if(username){
-            history.push("/dashboard")
-        }
-    },[username])
 
     return (
         <div className="signup-container">
