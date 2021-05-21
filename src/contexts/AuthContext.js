@@ -42,17 +42,9 @@ export function AuthProvider({children}) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
-            setLoading(true)
-            db.collection("users").doc(user.uid).get().then(doc => {
-                if (doc.exists){
-                    setUserName(doc.data().username)
-                    // console.log(username)
-                }
-            }).then(
-                setLoading(false)
-            )
-            
+            setLoading(false)
         })
+        console.log(loading)
         return unsubscribe
     }, [])
 
@@ -63,7 +55,8 @@ export function AuthProvider({children}) {
 
     return (
         <AuthContext.Provider value ={value}>
-            {!loading && children}
+        
+        {!loading && children}
   
         </AuthContext.Provider>
     )

@@ -1,0 +1,76 @@
+.navbar {
+  display: flex;
+  --nav-size: 60px;
+  --border-radius: 8px;
+  --border: 1px solid #474a4d;
+  height: var(--nav-size);
+  background: #23272a;
+}
+
+.navbar-logo {
+  font-size: 36px;
+  color: #83919a;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.navbar-nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-item {
+  width: calc(var(--nav-size) * 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.icon-button > .MuiSvgIcon-root {
+  fill: white;
+  height: 30px;
+  width: 30px;
+}
+
+.icon-button {
+  --button-size: calc(var(--nav-size) * 0.5);
+  width: var(--button-size);
+  height: var(--button-size);
+  background-color: #484a4d;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 2px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 300ms;
+}
+.icon-button:hover {
+  filter: brightness(1.2);
+}
+
+.dropdown {
+  position: absolute;
+  top: 58px;
+  width: 300px;
+  transform: translateX(-45%);
+  background-color: #23272a;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  overflow: hidden;
+  transition: height var(--speed) ease;
+}
+
+.menu-item {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  transition: background var(--speed);
+  padding: 0.5rem;
+}

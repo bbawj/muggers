@@ -1,35 +1,27 @@
-import React, { useState } from "react";
-import "../Header.css"
+import React from "react";
+import "../Navbar.css"
 import { useAuth } from "../contexts/AuthContext"
-import {Link, useHistory} from "react-router-dom"
+import NavBarItem from "./NavBarItem";
+import Avatar from '@material-ui/core/Avatar';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import DropdownMenu from "./DropdownMenu"
 
-function Navbar(){
-    const {currentUser, logout} = useAuth()
-    const [error, setError] =useState("")
-    const history = useHistory()
-
-    async function handleLogout(){
-        setError("")
-        try{
-            await logout()
-            history.pushState("/login")
-        } catch{
-            setError("Failed to logout")
-        }
-    }
+function NavBar(){
+    const {currentUser} = useAuth()
+  
     return(
-        <div className="navbar">
-        <ul>
-            <li style={{flex:8}}>muggers</li>
-            {!currentUser && <li style={{flex:1}}><Link className="link" to="/signup">Sign Up</Link></li>}
-            {!currentUser && <li style={{flex:1}}><Link className="link" to="/login">Login</Link></li>}
-            {currentUser && <li style={{flex:2}}><Link className="link" to="/update-profile">Update Profile </Link></li>}
-            {currentUser && <li style={{flex:1}}><div className="link" onClick={handleLogout}>Logout</div></li>}
-            
-        </ul>
-        </div>
+        <nav className="navbar">
+        <p className="navbar-logo">muggers</p>
+            {currentUser && <ul className="navbar-nav">
+                <NavBarItem Icon={NotificationsIcon}/>
+                <NavBarItem Icon={Avatar}>
+                    <DropdownMenu />
+                </NavBarItem>
+                
+            </ul>}
+        </nav>
     )
 
 }
 
-export default Navbar;
+export default NavBar;

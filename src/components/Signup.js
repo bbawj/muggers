@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {Alert} from "react-bootstrap"
+import Alert from '@material-ui/lab/Alert';
 import "../Signup.css"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from 'react-router-dom'
@@ -37,7 +37,7 @@ function Signup() {
             <h1>Sign up</h1>
             
             <h2>Create new account</h2>
-            {error && (<Alert variant="danger">{error}</Alert>)}
+            {error && (<Alert severity="error">{error}</Alert>)}
             <form onSubmit={handleSubmit}>
                 <input className="email" type="text" placeholder="Email" ref={emailRef} required/>
                 <input className="password" type="password" placeholder="Password" ref={passwordRef} required/>

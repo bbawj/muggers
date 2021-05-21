@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {Alert} from "react-bootstrap"
 import "../Signup.css"
 import { useAuth, useUser } from "../contexts/AuthContext"
 import { Link, useHistory } from 'react-router-dom'
@@ -69,7 +68,7 @@ function Username() {
         
         <div className="signup-container-rec1">
             <h1 style={{fontSize:"3.25rem"}}>Enter a username</h1>
-            {error && (<Alert style={avail ? {color:"green"} : {color:"red"}} variant="danger">{error}</Alert>)}
+            {error && (<p style={avail ? {color:"green"} : {color:"red"}}>{error}</p>)}
             <form onSubmit={handleSubmit}>
                 <input onChange={checkUsername} className="email" type="text" placeholder="Username" ref={usernameRef} required/>
                 <button disabled={!avail || loading} type="submit">Finish</button>
