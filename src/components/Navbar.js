@@ -34,6 +34,7 @@ function NavBar(){
             ref.get().then(doc => {
                 setFriendNotif(doc.data().friend_req_rec)
             })
+            
         }
         
     }, [])
@@ -49,8 +50,8 @@ function NavBar(){
                 </NavBarItem>
                 <NavBarItem Icon={Avatar}>
                     <DropdownMenu>
-                        <DropdownItem leftIcon={AccountBoxIcon} lin={"/update-profile"}><Link className="link" to="/update-profile">Update Profile</Link></DropdownItem>
-                        <DropdownItem leftIcon={ExitToAppIcon}><div className="link" onClick={handleLogout}>Logout</div></DropdownItem>
+                        <DropdownItem leftIcon={<AccountBoxIcon/>} lin={"/update-profile"}><Link className="link" to="/update-profile">Update Profile</Link></DropdownItem>
+                        <DropdownItem leftIcon={<ExitToAppIcon/>}><div className="link" onClick={handleLogout}>Logout</div></DropdownItem>
                     </DropdownMenu>
                 </NavBarItem>
                 

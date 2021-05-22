@@ -64,6 +64,7 @@
   padding: 1rem;
   overflow: hidden;
   transition: height var(--speed) ease;
+  z-index: 2;
 }
 
 .menu-item {

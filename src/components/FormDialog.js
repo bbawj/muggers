@@ -9,7 +9,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import firebase from "firebase/app";
 
 
 function FormDialog(props) {
@@ -30,15 +29,17 @@ function FormDialog(props) {
         if(props.type==="add"){
             const docRef = db.collection("usernames").doc(inputRef.current.value)
             docRef.get().then(doc => {
-                
+
                     if (doc.exists){
                         db.collection("users").doc(currentUser.uid).set({friend_req_sent: [inputRef.current.value]}, {merge:true}
-                            ).then(db.collection("users").doc(docRef.id).set({friend_req_rec: [currentUser.displayName]}, {merge:true}))
+                            ).then(db.collection("users").doc(doc.data().id).set({friend_req_rec: [currentUser.displayName]}, {merge:true}))
 
                         setMessage("Friend request sent!")
                     } else {
                         setMessage("User doesn't exist")
                     }
+                 
+                    
                  
             })
         } else if (props.type==="invite"){
@@ -54,7 +55,6 @@ function FormDialog(props) {
                             {props.icon}
                         </Button>
     }
-
 
     return (
         <div>

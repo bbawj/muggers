@@ -1,8 +1,9 @@
 import React, {useRef, useState} from 'react'
-import Alert from '@material-ui/lab/Alert';
-import "../Signup.css"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from 'react-router-dom'
+import "../Signup.css"
+import Avatar from '@material-ui/core/Avatar';
+import Alert from '@material-ui/lab/Alert';
 
 function UpdateProfile() {
     const emailRef = useRef()
@@ -47,11 +48,12 @@ function UpdateProfile() {
         
         <div className="signup-container-rec1">
             <h1 style={{fontSize: "4rem"}}>Update Profile</h1>
+            
             {error && (<Alert severity="error">{error}</Alert>)}
             <form onSubmit={handleSubmit}>
                 <input className="email" type="text" placeholder="Email" ref={emailRef} required defaultValue={currentUser.email}/>
-                <input className="password" type="password" placeholder="Leave blank to keep the same" ref={passwordRef}  />
-                <input className="password" type="password" placeholder="Leave blank to keep the same" ref={passwordConfirmRef} />
+                <input className="password" type="password" placeholder="Password: Leave blank to keep the same" ref={passwordRef}  />
+                <input className="password" type="password" placeholder="Confirm Password: Leave blank to keep the same" ref={passwordConfirmRef} />
                 <button disabled={loading} type="submit">Update</button>
             </form>
             

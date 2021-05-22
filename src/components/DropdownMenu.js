@@ -5,7 +5,7 @@ import "../Navbar.css"
 export function DropdownItem(props) {
     return (
       <a href={props.lin} className="menu-item">
-        <span className="icon-button"><props.leftIcon/></span>
+        <span className="icon-right">{props.leftIcon}</span>
         {props.children}
         <span className="icon-right">{props.rightIcon}</span>
       </a>
@@ -15,8 +15,7 @@ export function DropdownItem(props) {
 export function DropdownMenu(props) {
 
     return (
-        <div className="dropdown">
-            
+        <div className="dropdown">    
             {props.children}
         </div>
     )
