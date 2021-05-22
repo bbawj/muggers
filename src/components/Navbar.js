@@ -48,7 +48,7 @@ function NavBar(){
                         {friendnotif && friendnotif.map((text) => <DropdownItem>{text} has sent a friend request</DropdownItem>)}
                     </DropdownMenu>
                 </NavBarItem>
-                <NavBarItem Icon={Avatar}>
+                <NavBarItem Icon={Avatar} src={currentUser.photoURL}>
                     <DropdownMenu>
                         <DropdownItem leftIcon={<AccountBoxIcon/>} lin={"/update-profile"}><Link className="link" to="/update-profile">Update Profile</Link></DropdownItem>
                         <DropdownItem leftIcon={<ExitToAppIcon/>}><div className="link" onClick={handleLogout}>Logout</div></DropdownItem>

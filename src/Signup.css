@@ -106,3 +106,15 @@
   width: 70%;
   font-size: 26px;
 }
+
+.avatar {
+  display: flex;
+  align-items: center;
+}
+
+.avatar > .MuiIconButton-root {
+  justify-content: center;
+  align-self: flex-end;
+  height: 40px;
+  width: 40px;
+}

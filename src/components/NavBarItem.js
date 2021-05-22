@@ -8,7 +8,7 @@ function NavBarItem(props) {
     return (
         <li className="nav-item" onClick={() => setOpen(!open)}>
             <a href="#" className="icon-button">
-                <props.Icon />
+                <props.Icon src={props.src}/>
             </a>
             {open && props.children}
         </li>
