@@ -9,6 +9,7 @@ import {DropdownMenu, DropdownItem} from "./DropdownMenu"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {Link, useHistory} from "react-router-dom"
+import Notifications from "./Notifications"
 
 
 function NavBar(){
@@ -45,7 +46,7 @@ function NavBar(){
             {currentUser && <ul className="navbar-nav">
                 <NavBarItem Icon={NotificationsIcon}>
                     <DropdownMenu>
-                        {friendnotif && friendnotif.map((text) => <DropdownItem>{text} has sent a friend request</DropdownItem>)}
+                        <Notifications />
                     </DropdownMenu>
                 </NavBarItem>
                 <NavBarItem Icon={Avatar} src={currentUser.photoURL}>

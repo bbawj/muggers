@@ -7,7 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
-import { storage } from "../firebase"
+import { db, storage } from "../firebase"
 
 function UpdateProfile() {
     const emailRef = useRef()
@@ -48,21 +48,24 @@ function UpdateProfile() {
           })
       }
 
+    // get invisible input
     function handleEditPicture(){
       const fileInput = document.getElementById("imageInput")
       fileInput.click()
     }
     
+    // send image to firebase
     async function handleImageChange(event){
       const image = event.target.files[0]
       const current_img = currentUser.photoURL
-      //send to server
       try{
         setError("")
         const task_ref = storage.ref().child("profile_pictures/" + image.name)
-        await task_ref.put(image)
-        const url = await task_ref.getDownloadURL()
-        await currentUser.updateProfile({ photoURL: url })
+        const upload = task_ref.put(image)
+        const url =  task_ref.getDownloadURL()
+        const update = currentUser.updateProfile({ photoURL: url })
+        const updateDB = db.collection("users").doc(currentUser.uid).set({photoURL: url})
+        await Promise.all([upload,url,update, updateDB])
         if (current_img){
           await storage.refFromURL(current_img).delete()
         }
