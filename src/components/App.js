@@ -7,7 +7,7 @@ import Home from "./Home";
 import Signup from './Signup';
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
-import ReRoute from "./ReRoute"
+import {ReRoute, ReRouteUsername} from "./ReRoute"
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
 import Dashboard from "./Dashboard";
@@ -26,7 +26,7 @@ function App() {
           <ReRoute exact path="/" component={Home}/>
           <Route path="/login" component={Login} />
             <PrivateRoute path="/update-profile" component={UpdateProfile}/>
-            <Route path="/username" component={Username}/>
+            <ReRouteUsername path="/username" component={Username}/>
             <Route path="/signup" component={Signup} />
             
             <Route path="/forgot-password" component={ForgotPassword} />

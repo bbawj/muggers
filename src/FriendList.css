@@ -11,3 +11,7 @@
 .friendlist > h2 {
   font-size: 20px;
 }
+
+.friendlist-header {
+  display: flex;
+}

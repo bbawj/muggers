@@ -12,6 +12,8 @@ export default function PrivateRoute({component: Component, ...rest}) {
                 // return currentUser? <Component {...props} />: <Redirect to="/login" />
                 if (!currentUser){
                     return <Redirect to="/login" />
+                } else if (!currentUser.displayName){
+                    return <Redirect to="/username" />
                 } else{
                     return <Component {...props} />
                 }

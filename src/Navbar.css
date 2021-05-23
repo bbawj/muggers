@@ -53,6 +53,13 @@
   filter: brightness(1.2);
 }
 
+.icon-button > .MuiIconButton-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
 .dropdown {
   position: absolute;
   top: 58px;
@@ -72,6 +79,15 @@
   display: flex;
   align-items: center;
   border-radius: var(--border-radius);
-  transition: background var(--speed);
   padding: 0.5rem;
+}
+
+.menu-list {
+  background-color: #23272a;
+  color: white;
+}
+
+.notif {
+  display: flex;
+  align-items: center;
 }

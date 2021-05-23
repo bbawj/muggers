@@ -5,12 +5,12 @@ import { useAuth } from "../contexts/AuthContext"
 import NavBarItem from "./NavBarItem";
 import Avatar from '@material-ui/core/Avatar';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {DropdownMenu, DropdownItem} from "./DropdownMenu"
+import {DropdownMenu, DropdownItem, TestDropdownMenu} from "./DropdownMenu"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {Link, useHistory} from "react-router-dom"
 import Notifications from "./Notifications"
-
+import MenuItem from '@material-ui/core/MenuItem';
 
 function NavBar(){
     const {currentUser} = useAuth()
@@ -44,17 +44,22 @@ function NavBar(){
         <nav className="navbar">
         <p className="navbar-logo">muggers</p>
             {currentUser && <ul className="navbar-nav">
-                <NavBarItem Icon={NotificationsIcon}>
-                    <DropdownMenu>
+                <TestDropdownMenu Icon={NotificationsIcon}>
+                    <MenuItem style={{width:"550px"}}>
                         <Notifications />
-                    </DropdownMenu>
-                </NavBarItem>
-                <NavBarItem Icon={Avatar} src={currentUser.photoURL}>
-                    <DropdownMenu>
-                        <DropdownItem leftIcon={<AccountBoxIcon/>} lin={"/update-profile"}><Link className="link" to="/update-profile">Update Profile</Link></DropdownItem>
-                        <DropdownItem leftIcon={<ExitToAppIcon/>}><div className="link" onClick={handleLogout}>Logout</div></DropdownItem>
-                    </DropdownMenu>
-                </NavBarItem>
+                    </MenuItem>
+                </TestDropdownMenu>
+                <TestDropdownMenu Icon={Avatar} src={currentUser.photoURL}>
+                    <MenuItem>
+                        <AccountBoxIcon/>
+                        <Link className="link" to="/update-profile">Update Profile</Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <ExitToAppIcon/>
+                        <div className="link" onClick={handleLogout}>Logout</div>
+                    </MenuItem>
+                   
+                </TestDropdownMenu>
                 
             </ul>}
         </nav>
