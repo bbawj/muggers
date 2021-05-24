@@ -30,7 +30,7 @@ export function ReRouteUsername({component: Component, ...rest}) {
             {...rest}
             render={props => {
                 // return currentUser? <Component {...props} />: <Redirect to="/login" />
-                if (currentUser.displayName){
+                if (currentUser && currentUser.displayName){
                     return <Redirect to="/dashboard" />
                 } else{
                     return <Component {...props} />

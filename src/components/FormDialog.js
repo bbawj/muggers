@@ -35,12 +35,11 @@ function FormDialog(props) {
                     if (doc.exists){
                         //check for condition in array to not duplicate notification
                         const condition = await db.collection("users").doc(currentUser.uid).get()
-                        if (!condition.data().friend_req_sent.includes(inputRef.current.value)){
+                        if (!condition.data().friend_req_sent || !condition.data().friend_req_sent.includes(inputRef.current.value)){
                             await db.collection("notifications").add({
                                 type:"friend",
                                 read: false,
                                 sender: { id: currentUser.uid, username: currentUser.displayName },
-                                photoURL: currentUser.photoURL,
                                 receiver: inputRef.current.value,
                                 created_at: firebase.firestore.FieldValue.serverTimestamp()
                             })

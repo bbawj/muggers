@@ -61,17 +61,17 @@ function UpdateProfile() {
       try{
         setError("")
         const task_ref = storage.ref().child("profile_pictures/" + image.name)
-        const upload = task_ref.put(image)
-        const url =  task_ref.getDownloadURL()
-        const update = currentUser.updateProfile({ photoURL: url })
-        const updateDB = db.collection("users").doc(currentUser.uid).set({photoURL: url})
-        await Promise.all([upload,url,update, updateDB])
+        await task_ref.put(image)
+        const url =  await task_ref.getDownloadURL()
+        await currentUser.updateProfile({ photoURL: url })
+        await db.collection("users").doc(currentUser.uid).set({photoURL: url}, {merge:true})
+      
         if (current_img){
           await storage.refFromURL(current_img).delete()
         }
         setImageUrl(url)      
       } catch(err){
-  
+        console.log(err)
         setError("Failed to change profile picture")
       } 
       

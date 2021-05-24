@@ -21,18 +21,25 @@ function Username() {
         try{
             setError("")
             setLoading(true)
-            const a = db.collection("usernames").doc(inputUsername).set({
+            const batch = db.batch()
+            batch.set(db.collection("usernames").doc(inputUsername),{
                 id: currentUser.uid
-            })
-            const b = db.collection('users').doc(currentUser.uid).set({
+            } )
+            batch.set(db.collection('users').doc(currentUser.uid), {
                 username: inputUsername
             })
-            const c = updateProfile(inputUsername)
-            await Promise.all([a,b,c])
+            batch.set(db.collection("friends").doc(inputUsername), {
+                lastPost:"",
+                recentPosts: [],
+                users: []
+            })
+            await batch.commit()
+            await updateProfile(inputUsername)
             alert("Username successfully set!")
             history.push("/dashboard")
          
         } catch(error) {
+            
             setError("Failed to create username")
         }
         setLoading(false)

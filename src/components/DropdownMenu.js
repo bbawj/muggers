@@ -70,8 +70,8 @@ export function TestDropdownMenu(props) {
       aria-haspopup="true"
       onClick={handleToggle}
       style={{justifyContent:"center"}}
-      src={props.src}>
-      <props.Icon/>
+      >
+      <props.Icon src={props.src}/>
     </IconButton>
     
     <Popper className="popper" open={open} anchorEl={anchorRef.current} role={undefined} placement="bottom-end" transition>

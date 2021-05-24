@@ -29,17 +29,7 @@ function NavBar(){
         }
     }
     
-    useEffect(() => {
-        if (currentUser){
-            const ref = db.collection("users").doc(currentUser.uid)
-            ref.get().then(doc => {
-                setFriendNotif(doc.data().friend_req_rec)
-            })
-            
-        }
-        
-    }, [])
-
+    
     return(
         <nav className="navbar">
         <p className="navbar-logo">muggers</p>
