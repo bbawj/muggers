@@ -1,6 +1,6 @@
 .dashboard--main {
   display: flex;
-  height: 100vh;
+  height: 90%;
 }
 
 .dashboard {
@@ -8,4 +8,14 @@
   margin-top: 10px;
   margin-left: 40px;
   margin-right: 40px;
+  overflow-y: scroll;
+  min-width: fit-content;
+}
+.dashboard {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.dashboard::-webkit-scrollbar {
+  display: none;
 }

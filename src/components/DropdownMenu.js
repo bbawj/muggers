@@ -7,26 +7,6 @@ import Popper from '@material-ui/core/Popper';
 import IconButton from '@material-ui/core/IconButton';
 import MenuList from '@material-ui/core/MenuList';
 
-export function DropdownItem(props) {
-    return (
-      <a href={props.lin} className="menu-item">
-        <span className="icon-right">{props.leftIcon}</span>
-        {props.children}
-        <span className="icon-right">{props.rightIcon}</span>
-      </a>
-    );
-  }
-
-export function DropdownMenu(props) {
-
-    return (
-        <div className="dropdown">    
-            {props.children}
-        </div>
-    )
-}
-
-
 export function TestDropdownMenu(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);

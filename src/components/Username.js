@@ -31,7 +31,7 @@ function Username() {
             batch.set(db.collection("friends").doc(inputUsername), {
                 lastPost:"",
                 recentPosts: [],
-                users: []
+                users: [inputUsername]
             })
             await batch.commit()
             await updateProfile(inputUsername)

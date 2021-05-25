@@ -1,4 +1,9 @@
 .feed {
+  overflow-y: scroll;
+  min-width: fit-content;
+}
+
+.feed {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

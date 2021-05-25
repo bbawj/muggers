@@ -7,9 +7,10 @@ function Feed() {
 
     const { currentUser } = useAuth()
     const [posts, setPosts] = useState([])
-    const [postIds, setPostIds] = useState([])
+    const [unsortedPosts, setUnsortedPosts] = useState([])
 
-    useEffect(() => {
+    useEffect(()=>{
+
         async function getFeed(){
             const followedUsers = await db.collection('friends')
                 .where('users', 'array-contains', currentUser.displayName)
@@ -17,20 +18,33 @@ function Feed() {
                 .limit(10)
                 .get()
             
-            const data = followedUsers.docs.map(doc => doc.data())
-            console.log(data)
-            const recentPosts = data.reduce((acc,cur) => acc.concat(cur.recentPosts) , [])
-            const sortedPosts = recentPosts.sort((a,b) => b.created_at - a.created_at)
-            setPostIds(sortedPosts.map(post=> post.postId))
+            const data = followedUsers.docs.map(doc => db.collection("friends").doc(doc.id).collection("recentPosts").get())
+            const test = await Promise.all(data)
+            const posts = test.map(doc => doc.docs.map(doc=>doc.data()))
+            const recentPosts = posts.reduce((acc,cur) => acc.concat(cur) , [])
+            const unsubscribe = db.collection("posts").where("username", "==", currentUser.displayName)
+                                .onSnapshot(snapshot =>{
+                                const myPosts = snapshot.docs.map(doc => doc.data())
+                                setUnsortedPosts([...recentPosts, ...myPosts])
+                                })
+            
+            
+            return unsubscribe
         }
         getFeed()
-    },[])
+    }, [])
 
-    useEffect(()=>{
-        const reads = postIds.map(id=> db.collection('posts').doc(id).get())
-        Promise.all(reads)
-        setPosts(reads.map(read => read.data()))
-    }, [postIds])
+    useEffect(() => {
+        async function getPosts(){
+            const sortedPosts = unsortedPosts.sort((a,b) => b.created_at - a.created_at)
+            const postIds = sortedPosts.map(post => post.id)
+            const reads = postIds.map(id=> db.collection('posts').doc(id).get())
+            const data = await Promise.all(reads)
+            setPosts(data.map(read => read.data()))
+        }
+        getPosts()
+        
+    }, [unsortedPosts])
 
     return (
         <div className="feed"> 

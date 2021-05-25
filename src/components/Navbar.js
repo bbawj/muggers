@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {db} from "../firebase"
+import React, { useState } from "react";
 import "../Navbar.css"
 import { useAuth } from "../contexts/AuthContext"
-import NavBarItem from "./NavBarItem";
 import Avatar from '@material-ui/core/Avatar';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {DropdownMenu, DropdownItem, TestDropdownMenu} from "./DropdownMenu"
+import {TestDropdownMenu} from "./DropdownMenu"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {Link, useHistory} from "react-router-dom"
@@ -16,7 +14,6 @@ function NavBar(){
     const {currentUser} = useAuth()
     const {logout} = useAuth()
     const [error, setError] =useState("")
-    const [friendnotif, setFriendNotif] = useState([])
     const history = useHistory()
 
     async function handleLogout(){
@@ -35,7 +32,7 @@ function NavBar(){
         <p className="navbar-logo">muggers</p>
             {currentUser && <ul className="navbar-nav">
                 <TestDropdownMenu Icon={NotificationsIcon}>
-                    <MenuItem style={{width:"550px"}}>
+                    <MenuItem style={{width:"300px", whiteSpace:"unset", wordBreak:"break-all"}}>
                         <Notifications />
                     </MenuItem>
                 </TestDropdownMenu>

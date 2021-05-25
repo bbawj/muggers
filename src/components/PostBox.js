@@ -18,6 +18,7 @@ function PostBox() {
             const time = firebase.firestore.FieldValue.serverTimestamp() 
             const postRef = db.collection("posts").doc()
             batch.set(postRef, {
+                id: postRef.id,
                 username: currentUser.displayName,
                 text: postMessage,
                 created_at: time
