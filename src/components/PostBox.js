@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext"
 import "../PostBox.css"
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 function PostBox() {
     const [postMessage, setPostMessage] = useState("");
@@ -45,14 +46,15 @@ function PostBox() {
     return (
         
         <div className="postbox">
-            <form>
-                <input value={postMessage} onChange={(e) => setPostMessage(e.target.value)} className="postbox--area" placeholder="What you mugging?" type="text"/>
+            
+                <TextField multiline value={postMessage} onChange={(e) => setPostMessage(e.target.value)} rows={3}
+                type="text" inputProps={{maxLength: 140 , disableUnderline:true}} placeholder="What you mugging?"/>
                     <div className="postbox--button--container">
                         <Button onClick={sendPost} variant="contained" color="primary" className="postbox--button" endIcon={<Icon>send</Icon>} type="submit">
                             Post
                         </Button>
                     </div>
-            </form>
+            
         </div>
         
     )

@@ -4,12 +4,13 @@
 }
 
 .dashboard {
-  flex: 0.8;
-  margin-top: 10px;
-  margin-left: 40px;
-  margin-right: 40px;
+  flex: 0.6;
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
   overflow-y: scroll;
   min-width: fit-content;
+  background-color: #2c2f33;
 }
 .dashboard {
   -ms-overflow-style: none;

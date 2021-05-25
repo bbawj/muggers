@@ -25,7 +25,7 @@ function Post( {username, text} ) {
             <div className="post__body">
                 <div className="post__header">
                     <div className="post__headerText">
-                        <h3>{username}</h3>
+                        <h3 style={{fontWeight:"500"}}>{username}</h3>
                     </div>
                     <div className="post__headerDescription">
                         {text}

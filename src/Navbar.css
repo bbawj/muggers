@@ -5,6 +5,7 @@
   --border: 1px solid #474a4d;
   height: var(--nav-size);
   background: #23272a;
+  width: 100%;
 }
 
 .navbar-logo {

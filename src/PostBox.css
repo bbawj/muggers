@@ -1,18 +1,31 @@
 .postbox {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #242526;
   flex: 0.2;
+  width: 100%;
 }
 
 .postbox--area {
   display: flex;
   flex: 1;
   outline: none;
-  font-size: 24px;
+  font-size: 50px;
   width: 100%;
   border: none;
   padding: 5px;
+}
+
+.postbox > .MuiTextField-root {
+  outline: none;
+  border: none;
+  padding: 10px;
+}
+
+.postbox > .MuiTextField-root > .MuiInput-root {
+  font-size: 20px;
+  border: none;
+  color: white;
 }
 
 .postbox--button {
@@ -22,7 +35,7 @@
 
 .postbox--button--container {
   display: flex;
-  width: 100%;
-  padding: 5px;
-  background-color: white;
+  margin-left: 10px;
+  padding-bottom: 10px;
+  background-color: #242526;
 }

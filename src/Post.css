@@ -1,11 +1,11 @@
 .post {
   display: flex;
   align-items: flex-start;
-  background-color: white;
+  background-color: #242526;
   padding-bottom: 10px;
-  width: 100%;
   padding: 5px;
-  border-bottom: 5px solid #f9f9f9;
+  margin-bottom: 5px;
+  /* border-bottom: 5px solid #f9f9f9; */
   border-radius: 6px;
 }
 .post__body {

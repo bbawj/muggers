@@ -48,7 +48,7 @@ function Feed() {
 
     return (
         <div className="feed"> 
-            <h2>Recent Activity</h2>
+            <h2 style={{fontWeight:500}}>Recent Activity</h2>
             {posts.map(post => (
                 <Post username={post.username} text={post.text} key={post.id} />
             ))}

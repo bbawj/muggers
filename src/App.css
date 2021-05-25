@@ -4,16 +4,20 @@
 :root {
   --special: #3f51b5;
   --speed: 500ms;
+  --bg-components: #242526;
+  --bg: #242526;
+  --main-text: ;
 }
 
 .app {
   display: flex;
   flex-direction: column;
-  background-color: #f9f9f9;
+  background-color: #242526;
   font-family: Roboto;
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
+  color: white;
 }
 
 ul {
