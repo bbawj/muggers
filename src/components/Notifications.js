@@ -31,20 +31,30 @@ function Notifications() {
             // add to friends-doc user array ; update request arrays; delete notification;
             try{
                 const batch = db.batch()
-                batch.update(db.collection("friends").doc(currentUser.displayName),{users: firebase.firestore.FieldValue.arrayUnion(sender)} )
-                batch.update(db.collection("friends").doc(sender),{users: firebase.firestore.FieldValue.arrayUnion(currentUser.displayName)} )
+                batch.update(db.collection("friends").doc(currentUser.displayName),{users: firebase.firestore.FieldValue.arrayUnion(sender_id)} )
+                batch.update(db.collection("friends").doc(sender),{users: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)} )
                 batch.update(db.collection("users").doc(currentUser.uid),{friend_req_rec: firebase.firestore.FieldValue.arrayRemove(sender)} )
                 batch.update(db.collection("users").doc(sender_id), {friend_req_sent: firebase.firestore.FieldValue.arrayRemove(currentUser.displayName)})
                 batch.delete(db.collection("notifications").doc(id))
                 await batch.commit()
-                setMessage(`You have accepted ${sender}'s friend request`)
+                setMessage(`You are now friends with ${sender}`)
             } catch(err){
                 console.log(err)
             }         
         }
 
-        function handleDecline(){
-
+        async function handleDecline(){
+            // remove from request arrays; delete notification
+            try{
+                const batch = db.batch()
+                batch.update(db.collection("users").doc(currentUser.uid),{friend_req_rec: firebase.firestore.FieldValue.arrayRemove(sender)} )
+                batch.update(db.collection("users").doc(sender_id), {friend_req_sent: firebase.firestore.FieldValue.arrayRemove(currentUser.displayName)})
+                batch.delete(db.collection("notifications").doc(id))
+                await batch.commit()
+                setMessage(`You have declined ${sender}'s request`)
+            } catch (err){
+                console.log(err)
+            }
         }
 
         useEffect(() => {
@@ -108,6 +118,8 @@ function Notifications() {
             {notifications.map(notif => {
                     if (notif.type==="friend"){
                         return <FriendNotificationItem key={notif.id} id={notif.id} sender={notif.sender} sender_id={notif.sender_id} />
+                    } else{
+                        return null
                     }
                 })}
         </div>

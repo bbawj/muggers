@@ -66,7 +66,7 @@ function FormDialog(props) {
     if (props.Icon){
         clickable = <props.Icon />
     } else{
-        clickable = <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        clickable = <Button variant="contained" color="primary" onClick={handleClickOpen}>
                             {props.icon}
                         </Button>
     }
@@ -84,6 +84,7 @@ function FormDialog(props) {
                 <TextField
                     inputRef= {inputRef}
                     autoFocus
+                    autoComplete="off"
                     margin="dense"
                     id="name"
                     placeholder="Username"

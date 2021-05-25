@@ -1,4 +1,4 @@
-.feed {
+/* .feed {
   overflow-y: scroll;
   min-width: fit-content;
 }
@@ -10,7 +10,7 @@
 
 .feed::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .feed > h2 {
   margin-top: 10px;

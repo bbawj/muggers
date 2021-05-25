@@ -8,10 +8,22 @@
   border-radius: 20px;
 }
 
-.friendlist > h2 {
-  font-size: 20px;
+.friendlist-header > h2 {
+  padding: 10px;
 }
 
 .friendlist-header {
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.friend {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.friend > h3 {
+  margin-left: 5%;
 }

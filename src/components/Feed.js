@@ -13,7 +13,7 @@ function Feed() {
 
         async function getFeed(){
             const followedUsers = await db.collection('friends')
-                .where('users', 'array-contains', currentUser.displayName)
+                .where('users', 'array-contains', currentUser.uid)
                 .orderBy('lastPost', 'desc')
                 .limit(10)
                 .get()
@@ -50,7 +50,7 @@ function Feed() {
         <div className="feed"> 
             <h2>Recent Activity</h2>
             {posts.map(post => (
-                <Post username={post.username} text={post.text} avatar={post.avatar} key={post.uid} />
+                <Post username={post.username} text={post.text} key={post.id} />
             ))}
         </div>
     )

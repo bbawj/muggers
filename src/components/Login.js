@@ -3,6 +3,7 @@ import Alert from '@material-ui/lab/Alert';
 import "../Signup.css"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from 'react-router-dom'
+import { db } from '../firebase';
 
 function Login() {
     const emailRef = useRef()
@@ -19,6 +20,7 @@ function Login() {
             setError("")
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
+            //await db.collection("users").doc(currentUser.uid).update({isOnline: true})
             history.push("/dashboard")
         } catch{
             setError("Failed to log in")
