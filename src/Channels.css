@@ -22,9 +22,18 @@
   flex: 0.8;
   padding-top: 20px;
 }
+.channelContent > h2 {
+  margin-left: 20px;
+}
 
 .channels {
   cursor: pointer;
   color: #99aab5;
   padding: 10px;
+}
+
+.mugsheet {
+  margin: 20px;
+  background-color: var(--special);
+  border-radius: 5px;
 }

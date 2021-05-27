@@ -6,7 +6,7 @@ import { useApp } from "../contexts/AppContext"
 function Group({name, id}){
 
     const { setCurrentGroup, setCurrentChannel } = useApp()
-
+    
     return(
         <div className="sidebar__groups" onClick={ () => {
             setCurrentGroup(id)

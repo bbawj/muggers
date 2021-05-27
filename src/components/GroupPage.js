@@ -8,6 +8,7 @@ import ChannelPage from "./ChannelPage"
 function GroupPage({id}) {
 
     const [groupData, setGroupData] = useState({})
+    const [loading, setLoading] = useState(true)
     const { currentChannel } = useApp()
     // when user clicks on diff groups in sidebar, get group data from api
     useEffect(()=>{
@@ -16,8 +17,10 @@ function GroupPage({id}) {
                 await axios.get(`/group/${id}`).then(res => {
                     setGroupData(res.data)
                 })
+                setLoading(false)
             }catch(err){
                 console.log(err)
+                setLoading(false)
             }
         }
         getGroups()
@@ -28,13 +31,13 @@ function GroupPage({id}) {
         <div className="groupPage">
             <div className="channelSidebar">
             <h2>{groupData.group_name}</h2>
-            {groupData && Object.keys(groupData).length !== 0 && groupData.channelData.map(channel => (
+            {!loading && groupData.channelData.map(channel => (
                 <Channels key={channel.id} id={channel.id} name={channel.name}/>
             ))}
             </div>
             <div className="channelContent">
             <h2>{groupData.group_name}</h2>
-            {groupData && Object.keys(groupData).length !== 0 && groupData.channels.includes(currentChannel) && 
+            {!loading && groupData.channels.includes(currentChannel) && 
             <ChannelPage id={currentChannel} group_id={id} />}
             </div>
         </div>

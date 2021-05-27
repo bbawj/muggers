@@ -29,7 +29,7 @@ exports.getGroupData = (req, res) => {
   });
 };
 
-
+//gets array of all mugsheet documents object
 exports.getChannelData = (req, res) => {
   let channelData = {}
   db.collection("groups").doc(req.params.groupId).collection("channels")
@@ -39,7 +39,6 @@ exports.getChannelData = (req, res) => {
         channelData.data = snapshot.docs.map(doc => (
           {id: doc.id, ...doc.data()}
         ))
-        console.log(channelData.data.tasks)
         return res.json(channelData)
       }).catch((err) => {
         console.error(err);
