@@ -1,13 +1,16 @@
 .friendlist {
   display: flex;
   flex-direction: column;
-  flex: 0.2;
-  margin-top: 10px;
-
+  flex: 0.15;
+  overflow-y: scroll;
   height: 100%;
-  border-radius: 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+.friendlist::-webkit-scrollbar {
+  display: none;
+}
 .friendlist-header > h2 {
   padding: 10px;
   font-size: 20px;

@@ -1,0 +1,30 @@
+.groupPage {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.channelSidebar {
+  flex: 0.2;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-components);
+  padding-top: 20px;
+}
+
+.channelSidebar > h2 {
+  font-weight: 500;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.channelContent {
+  flex: 0.8;
+  padding-top: 20px;
+}
+
+.channels {
+  cursor: pointer;
+  color: #99aab5;
+  padding: 10px;
+}

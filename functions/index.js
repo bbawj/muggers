@@ -7,7 +7,7 @@ const {getGroupData, getChannelData} = require("./handlers/groups");
 // Group routes
 app.get("/group/:groupId", getGroupData);
 // app.post('/group', createNewGroup)
-//app.get("/channel/:channelId", getChannelData)
+app.get("/group/:groupId/channel/:channelId", getChannelData);
 
 
 exports.api = functions.https.onRequest(app);

@@ -21,9 +21,28 @@ exports.getGroupData = (req, res) => {
     );
     const data = await Promise.all(reads);
     groupData.channelData = data.map((doc) => doc.data());
+
     return res.json(groupData);
   }).catch((err) => {
     console.error(err);
     res.status(500).json({error: err.code});
   });
 };
+
+
+exports.getChannelData = (req, res) => {
+  let channelData = {}
+  db.collection("groups").doc(req.params.groupId).collection("channels")
+      .doc(req.params.channelId).collection("mugSheets").get()
+      .then((snapshot) =>{
+        
+        channelData.data = snapshot.docs.map(doc => (
+          {id: doc.id, ...doc.data()}
+        ))
+        console.log(channelData.data.tasks)
+        return res.json(channelData)
+      }).catch((err) => {
+        console.error(err);
+        res.status(500).json({error: err.code});
+      })
+}

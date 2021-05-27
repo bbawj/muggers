@@ -51,11 +51,11 @@ function StudyGroupsOption(){
                 <AddIcon onClick={handleAdd} className="sidebar__groups__add"/>
             </div>
             <hr style={{border:"none" , borderTop:"1px solid black"}}/>
-            
+            <div className="groupsContainer">
             {studyGroups.map(group =>{
                 
                  return (<Group key={group.studyGroupId} id={group.studyGroupId} name={group.studyGroupData.group_name}/>)})}
-        
+            </div>
          </div>
     )
 }

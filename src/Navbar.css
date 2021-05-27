@@ -1,6 +1,6 @@
 .navbar {
   display: flex;
-  --nav-size: 60px;
+  --nav-size: 5%;
   --border-radius: 8px;
   --border: 1px solid #474a4d;
   height: var(--nav-size);
