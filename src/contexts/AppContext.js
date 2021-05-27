@@ -9,14 +9,10 @@ export function useApp(){
 
 export function AppProvider( {children} ) {
 
-    const [groupinfo, setGroupInfo] = useState({
-        groupid: "",
-        groupname: "",
-
-    })
+    const [currentGroup, setCurrentGroup] = useState("")
 
     const value = {
-        groupinfo, setGroupInfo
+        currentGroup, setCurrentGroup
     }
     return (
         <AppContext.Provider value={value}>

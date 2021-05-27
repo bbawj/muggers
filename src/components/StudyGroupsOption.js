@@ -18,7 +18,7 @@ function StudyGroupsOption(){
         if(newGroup){
             const newGroupRef = db.collection("groups").doc()
             newGroupRef.set({
-                group_name: newGroup,
+                name: newGroup,
                 owner_id: currentUser.uid
             }).then(newGroupRef.update({
                 members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)

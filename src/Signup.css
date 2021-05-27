@@ -29,11 +29,11 @@
   font-weight: 900;
   font-size: 5.5rem;
   line-height: 66px;
-  color: var(--special);
+  color: white;
   margin-top: 20px;
 }
 .signup-container h2 {
-  color: #222831;
+  color: white;
   font-size: 1.5rem;
 }
 
@@ -59,7 +59,7 @@
 .email {
   border: none;
   border-bottom: 1px solid #07689f;
-  background-color: #fafafa;
+  background-color: #c4c4c4;
 }
 
 .password {
@@ -68,7 +68,7 @@
 }
 
 .password::placeholder {
-  font-size: 16px;
+  font-size: 26px;
 }
 
 .signup-container button {

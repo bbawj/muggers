@@ -58,23 +58,29 @@ function UpdateProfile() {
     async function handleImageChange(event){
       const image = event.target.files[0]
       const current_img = currentUser.photoURL
-      try{
-        setError("")
-        const task_ref = storage.ref().child("profile_pictures/" + image.name)
-        await task_ref.put(image)
-        const url =  await task_ref.getDownloadURL()
-        await currentUser.updateProfile({ photoURL: url })
-        await db.collection("users").doc(currentUser.uid).set({photoURL: url}, {merge:true})
-      
-        if (current_img){
-          await storage.refFromURL(current_img).delete()
-        }
-        setImageUrl(url)      
-      } catch(err){
-        console.log(err)
+      // my.image.png => ['my', 'image', 'png']
+      const imageExtension = image.name.split(".")[image.name.split(".").length - 1];
+      if (imageExtension !== "png" && imageExtension !== "jpeg"){
         setError("Failed to change profile picture")
-      } 
-      
+      } else{
+        try{
+          setError("")
+          const imageFileName = `${Math.round(Math.random() * 1000000000000).toString()}.${imageExtension}`
+          const task_ref = storage.ref().child("profile_pictures/" + imageFileName)
+          await task_ref.put(image)
+          const url =  await task_ref.getDownloadURL()
+          await currentUser.updateProfile({ photoURL: url })
+          await db.collection("users").doc(currentUser.uid).set({photoURL: url}, {merge:true})
+        
+          if (current_img && currentUser.photoURL){
+            await storage.refFromURL(current_img).delete()
+          }
+          setImageUrl(url)      
+        } catch(err){
+          console.log(err)
+          setError("Failed to change profile picture")
+        } 
+      }
     }
 
     return (

@@ -22,7 +22,6 @@ function FriendsList() {
                             )
             const data = await Promise.all(promises)
             setFriends(data.map(doc => doc.data()))
-            console.log(friends)
         }
         getFriends()
     },[])

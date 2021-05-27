@@ -5,11 +5,11 @@ import { useApp } from "../contexts/AppContext"
 
 function Group({name, id}){
 
-    const { setGroupInfo } = useApp()
+    const { setCurrentGroup } = useApp()
     
     
     return(
-        <div className="sidebar__groups" onClick={ () => setGroupInfo({groupid: id, groupname: name})}>
+        <div className="sidebar__groups" onClick={ () => setCurrentGroup(id)}>
             <Avatar />
             <h2 style={{fontSize:"20px"}}>{name}</h2>
         </div>

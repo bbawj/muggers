@@ -3,7 +3,6 @@ import Alert from '@material-ui/lab/Alert';
 import "../Signup.css"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from 'react-router-dom'
-import { db } from '../firebase';
 
 function Login() {
     const emailRef = useRef()
@@ -42,9 +41,7 @@ function Login() {
                 <input className="password" type="password" placeholder="Password" ref={passwordRef} required/>
                 <button disabled={loading} type="submit">Log In</button>
             </form>
-            <div>
                 <Link className="forgot-password" to="/forgot-password">Forgot Password?</Link>
-            </div>
             <div>
                 Need an account? <Link to="/signup">Sign Up.</Link>
             </div>

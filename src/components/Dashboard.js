@@ -9,13 +9,13 @@ import GroupPage from "./GroupPage";
 
 function Dashboard(){
 
-    const { groupinfo } = useApp()
-
+    const { currentGroup } = useApp()
+ 
     return(
         <div className="dashboard--main">
         <Sidebar />
         <div className="dashboard">
-            {groupinfo.groupid ? <GroupPage data={groupinfo}/> : <div><PostBox /><Feed /></div>}
+            {currentGroup ? <GroupPage data={currentGroup}/> : <div><PostBox /><Feed /></div>}
         </div>
         <FriendsList />
         </div>
