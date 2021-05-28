@@ -18,7 +18,7 @@ function ChannelPage({id, group_id}) {
   
             }catch (err){
                 console.log(err)
-                setLoading(false)
+                // setLoading(false)
             }
         }
         getChannel()
@@ -27,7 +27,7 @@ function ChannelPage({id, group_id}) {
     return (
         <div className="channelPage">
             {!loading && channelInfo.map(sheet => {
-                return <Mugsheet tasks={sheet.tasks} id={sheet.id} channelId={id} groupId={group_id}/> 
+                return <Mugsheet id={sheet.id} channelId={id} groupId={group_id}/> 
                 }
             )}
         </div>

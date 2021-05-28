@@ -37,3 +37,14 @@
   background-color: var(--special);
   border-radius: 5px;
 }
+
+.addTask-container {
+  display: flex;
+  align-items: center;
+}
+.addTask-container > .MuiSvgIcon-root {
+  padding-left: 10px;
+}
+.addTask ::placeholder {
+  font-size: 20px;
+}
