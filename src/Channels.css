@@ -12,10 +12,16 @@
   padding-top: 20px;
 }
 
-.channelSidebar > h2 {
+.channelSidebar-header > h2 {
   font-weight: 500;
   font-size: 20px;
   padding-left: 10px;
+}
+
+.channelSidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .channelActive {
@@ -71,4 +77,26 @@
 
 .delete {
   color: lightgrey;
+}
+
+.existingTask {
+  width: auto;
+}
+
+.taskContainer {
+  display: flex;
+  align-items: center;
+}
+
+.newSheet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 5%;
+}
+
+.newSheet ::placeholder {
+  color: #474a4e;
+  font-size: 20px;
 }

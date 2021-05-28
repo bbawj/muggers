@@ -57,8 +57,8 @@ function FormDialog(props) {
                     setMessage("Failed to send request")
                 }
             })
-        } else if (props.type==="invite"){
-
+        } else if (props.type==="create_channel"){
+           
         }
     }
     

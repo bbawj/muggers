@@ -10,6 +10,11 @@ import { v4 as uuidv4 } from 'uuid';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import DeleteIcon from '@material-ui/icons/Delete';
+import firebase from "firebase/app";
+import { DragIndicator } from '@material-ui/icons';
+import { useAuth } from '../contexts/AuthContext';
+import Avatar from '@material-ui/core/Avatar';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 const useStyles = makeStyles({
     input: {
@@ -19,6 +24,7 @@ const useStyles = makeStyles({
   
 function Mugsheet({id, channelId, groupId}) {
     const classes = useStyles()
+    const {currentUser} = useAuth()
     const [task, updateTask] = useState([])
     const [newtask, setNewTask] = useState("")
     const [title, setTitle] = useState("")
@@ -47,7 +53,7 @@ function Mugsheet({id, channelId, groupId}) {
     }
     
     function handleChangeNew(e){
-        if (e.target.name !== "addTitle" && e.target.value){
+        if (e.target.name !== "addTitle"){
             setNewTask(e.target.value)
         }else if (e.target.name === "addTitle"){
             setTitle(e.target.value)
@@ -71,9 +77,28 @@ function Mugsheet({id, channelId, groupId}) {
     //handle checkbox logic
     function handleCheck(e){
         const items = Array.from(task)
+        if (e.target.checked){
+            items[Number(e.target.name)].completed_by.push(currentUser.uid)
+        } else if (items[Number(e.target.name)].completed_by.includes(currentUser.uid) && !e.target.checked){
+            items[Number(e.target.name)].completed_by.pop(currentUser.uid)
+        }
         items[Number(e.target.name)].complete = e.target.checked
         docRef.update({tasks: items}).catch(() => setError(true))
     }
+    //delete task logic
+    function handleDelete(e){
+        const temp = Array.from(task)
+        const pos = temp.map(el => el.id).indexOf(e.currentTarget.name)
+        docRef.update({tasks: firebase.firestore.FieldValue.arrayRemove(task[pos])})
+        .catch((err) => setError(true))
+    }
+    function handleIcon(e){
+        const temp = Array.from(hidden)
+        const i = temp.indexOf(e.currentTarget.name)
+        temp.splice(i, 1) 
+        setHidden(temp)
+    }
+
 
     useEffect(() => {
         const unsubscribe = docRef.onSnapshot(doc => {
@@ -91,31 +116,35 @@ function Mugsheet({id, channelId, groupId}) {
         </Alert>
       </Snackbar>
         <InputBase className="title" name="addTitle" classes={{input: classes.input}} style={{width:"100%", padding:"10px",fontSize:"26px"}} 
-                        onBlur={handleAdd} onChange={handleChangeNew} value={title} placeholder="Title" />
+                    autoComplete="off" onBlur={handleAdd} onChange={handleChangeNew} value={title} placeholder="Title" />
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="tasks">
                     {(provided) => (
                     <ul {...provided.droppableProps} ref={provided.innerRef}>
-                        {task.map(({id, text,complete}, index) => {
+                        {task.map(({id, text,completed_by}, index) => {
                         return (
-                            <div>
+                            
                             <Draggable key={id} draggableId={id} index={index}>
-                            {(provided) => (
-                                <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <Checkbox checked={complete} name={index.toString()} onChange={handleCheck} style={{color:"white"}} />
-                        
-                                <InputBase classes={{input: classes.input}} defaultValue={text} name={index.toString()} onChange={handleChange} autoComplete="off"/>
-                                <IconButton index={index} onMouseOver={()=> setHidden(prev => [...prev, index])} onMouseOut={() => {
-                                                                                                    const temp = Array.from(hidden)
-                                                                                                    const i = temp.indexOf(index)
-                                                                                                    temp.splice(i, 1) 
-                                                                                                    setHidden(temp)}} >
-                                <DeleteIcon style={hidden.includes(index) ? {visibility:"visible"} : {visibility:"hidden"}} />
+                            {(provided, snapshot) => (
+                                <li onMouseOut={handleIcon} isDragging={snapshot.isDragging} onMouseOver={()=> setHidden(prev => [...prev, id])} className="taskContainer" ref={provided.innerRef} {...provided.draggableProps}>
+                                <div {...provided.dragHandleProps}><DragIndicator/></div>
+                                <Checkbox checked={completed_by.includes(currentUser.uid)} name={index.toString()} onChange={handleCheck} style={{color:"white"}} />                       
+                                <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={index.toString()} onChange={handleChange} autoComplete="off"/>
+                                <IconButton name={id}  onClick={e => {
+                                    handleIcon(e)
+                                    handleDelete(e)
+                                }}
+                                onMouseOut={handleIcon} >
+                                <DeleteIcon name={id} style={hidden.includes(id) ? {visibility:"visible"} : {visibility:"hidden"}} />
                                 </IconButton>
+                                {completed_by.length && <AvatarGroup>
+                                    <Avatar  />
+                                </AvatarGroup>}
+                                
                                 </li>
                             )}
                             </Draggable>
-                            </div>
+                            
                         );
                         })}
                         
