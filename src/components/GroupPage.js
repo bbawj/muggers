@@ -31,12 +31,12 @@ function GroupPage({id}) {
         <div className="groupPage">
             <div className="channelSidebar">
             <h2>{groupData.group_name}</h2>
+            <hr style={{border:"none" , borderTop:"1px solid black"}} />
             {!loading && groupData.channelData.map(channel => (
                 <Channels key={channel.id} id={channel.id} name={channel.name}/>
             ))}
             </div>
             <div className="channelContent">
-            <h2>{groupData.group_name}</h2>
             {!loading && groupData.channels.includes(currentChannel) && 
             <ChannelPage id={currentChannel} group_id={id} />}
             </div>

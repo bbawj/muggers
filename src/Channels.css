@@ -18,9 +18,23 @@
   padding-left: 10px;
 }
 
+.channelActive {
+  border-right: medium solid var(--special);
+  border-radius: 0px 3px 3px 0px;
+}
+
 .channelContent {
+  display: flex;
+  flex-direction: column;
   flex: 0.8;
-  padding-top: 20px;
+  /* padding-top: 20px; */
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.channelContent::-webkit-scrollbar {
+  display: none;
 }
 .channelContent > h2 {
   margin-left: 20px;
@@ -29,7 +43,8 @@
 .channels {
   cursor: pointer;
   color: #99aab5;
-  padding: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .mugsheet {
@@ -47,4 +62,13 @@
 }
 .addTask ::placeholder {
   font-size: 20px;
+  font-weight: 500;
+}
+
+.title ::placeholder {
+  font-size: 26px;
+}
+
+.delete {
+  color: lightgrey;
 }

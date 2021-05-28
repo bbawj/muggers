@@ -1,7 +1,6 @@
 import React from "react";
 import "../Sidebar.css";
 import StudyGroupsOption from "./StudyGroupsOption";
-import FriendsList from "./FriendsList"
 import FeedOption from "./FeedOption"
 
 function Sidebar(){
