@@ -41,7 +41,7 @@ function StudyGroupsOption(){
 
     return(
         <div className="studyGroups">
-            <Snackbar open={error} autoHideDuration={6000} onClose={() => setError("")}>
+            <Snackbar open={Boolean(error)} autoHideDuration={6000} onClose={() => setError("")}>
                 <Alert onClose={() => setError("")} severity="error">
                 {error}
                 </Alert>

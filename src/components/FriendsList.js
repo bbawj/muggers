@@ -21,7 +21,7 @@ function FriendsList() {
                                 db.collection("users").doc(friend).get()
                             )
             const data = await Promise.all(promises)
-            setFriends(data.map(doc => doc.data()))
+            setFriends(data.map(doc => { return {id: doc.id,...doc.data()}}))
         }
         getFriends()
     },[])
@@ -33,7 +33,7 @@ function FriendsList() {
                 <FormDialog type="add" icon="Add Friend" title="ADD FRIEND" text="You can add a friend with their username. Case sensitive!" />
             </div>
             {friends.map(friend => {
-                return <Friend username={friend.username} photo={friend.photoURL} />
+                return <Friend key={friend.id} username={friend.username} photo={friend.photoURL} />
             })}
         </div>
     )

@@ -5,10 +5,10 @@ import { useApp } from "../contexts/AppContext"
 
 function Group({name, id}){
 
-    const { setCurrentGroup, setCurrentChannel } = useApp()
-    
+    const { currentGroup, setCurrentGroup, setCurrentChannel } = useApp()
+     
     return(
-        <div className="sidebar__groups" onClick={ () => {
+        <div className={`sidebar__groups ${(currentGroup ===id) && 'activeGroup' }`} onClick={ () => {
             setCurrentGroup(id)
             setCurrentChannel("")}
         }>

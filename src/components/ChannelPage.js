@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from 'react'
-import axios from "../axios"
+import firebase from "firebase/app";
 import Mugsheet from './Mugsheet'
 import "../Channels.css"
 import Button from '@material-ui/core/Button';
+import { db } from '../firebase';
+
 
 function ChannelPage({id, group_id}) {
 
-    const [channelInfo, setChannelInfo] = useState({})
-    const [loading, setLoading] =useState(true)
-    const [expanded, setExpanded] = useState(false)
+    const [channelInfo, setChannelInfo] = useState([])
 
-
-    // when user clicks on diff channel on sidebar, get channel data from api
+    function addSheet(){
+        db.collection("groups").doc(group_id).collection("channels").doc(id).collection("mugSheets").add({
+           tasks:[],
+           created_at: firebase.firestore.FieldValue.serverTimestamp(),
+           title:"",
+           pinned: false 
+        })
+    }
     useEffect(() => {
-        async function getChannel(){
-            try{
-                await axios.get(`/group/${group_id}/channel/${id}`).then(res => {
-                    setChannelInfo(res.data.data) //array of current channel mugsheet objects
-                    setLoading(false)
-                })
-  
-            }catch (err){
-                console.log(err)
-                // setLoading(false)
-            }
-        }
-        getChannel()
+        const unsubscribe = db.collection("groups").doc(group_id).collection("channels").doc(id).collection("mugSheets").onSnapshot(snapshot =>{
+            setChannelInfo(snapshot.docs.map(doc=> {
+                return {id:doc.id, ...doc.data()}
+            }))
+        })
+        return unsubscribe
     }, [id])
     
     return (
         <div className="channelPage">
         <div className="newSheet">
-            <Button>Start mugging</Button>
+            <Button onClick={addSheet} >Start mugging</Button>
         </div>
-            {!loading && channelInfo.map(sheet => {
-                return <Mugsheet id={sheet.id} channelId={id} groupId={group_id}/> 
+            {channelInfo && channelInfo.map(sheet => {
+                return <Mugsheet id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
                 }
             )}
         </div>

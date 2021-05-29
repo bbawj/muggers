@@ -6,7 +6,7 @@ import FeedOption from "./FeedOption"
 function Sidebar(){
     return(
         <div className="sidebar-container">
-        <FeedOption active/>
+        <FeedOption />
         <StudyGroupsOption />
         </div>
     )

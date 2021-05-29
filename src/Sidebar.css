@@ -73,3 +73,7 @@
 .sidebar__groups > .MuiAvatar-root {
   margin: 20px;
 }
+
+.activeGroup {
+  color: var(--special);
+}

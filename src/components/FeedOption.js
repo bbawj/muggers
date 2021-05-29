@@ -3,12 +3,12 @@ import "../Sidebar.css"
 import HomeIcon from '@material-ui/icons/Home';
 import { useApp } from "../contexts/AppContext"
 
-function FeedOption({active}) {
+function FeedOption() {
 
-    const { setCurrentGroup } = useApp()
+    const { currentGroup, setCurrentGroup } = useApp()
 
     return (
-        <div onClick={() => setCurrentGroup("")} className={`feedOption ${active && 'sidebar--active'}`}>
+        <div onClick={() => setCurrentGroup("")} className={`feedOption ${(currentGroup ==="")&& 'sidebar--active'}`}>
             <HomeIcon />
             <h2>Feed</h2>
         </div>
