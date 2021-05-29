@@ -5,10 +5,13 @@ import { useApp } from "../contexts/AppContext"
 
 function FeedOption() {
 
-    const { currentGroup, setCurrentGroup } = useApp()
+    const { currentGroup, setCurrentGroup, setCurrentChannel } = useApp()
 
     return (
-        <div onClick={() => setCurrentGroup("")} className={`feedOption ${(currentGroup ==="")&& 'sidebar--active'}`}>
+        <div onClick={() => {
+            setCurrentGroup("")
+            setCurrentChannel("")
+        } } className={`feedOption ${(currentGroup ==="")&& 'sidebar--active'}`}>
             <HomeIcon />
             <h2>Feed</h2>
         </div>

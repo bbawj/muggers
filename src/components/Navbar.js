@@ -9,6 +9,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {Link, useHistory} from "react-router-dom"
 import Notifications from "./Notifications"
 import MenuItem from '@material-ui/core/MenuItem';
+import Bean from "../bean.png"
 
 function NavBar(){
     const {currentUser} = useAuth()
@@ -29,6 +30,7 @@ function NavBar(){
     
     return(
         <nav className="navbar">
+        <Avatar src={Bean} />
         <p className="navbar-logo">muggers</p>
             {currentUser && <ul className="navbar-nav">
                 <TestDropdownMenu Icon={NotificationsIcon}>

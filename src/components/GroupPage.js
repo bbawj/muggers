@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import axios from "../axios"
 import "../Channels.css"
 import Channels from './Channels'
 import { useApp } from "../contexts/AppContext"
@@ -9,9 +8,8 @@ import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import {db} from "../firebase"
 
-function GroupPage({id}) {
+function GroupPage({id, name}) {
 
-    const [groupData, setGroupData] = useState({})
     const [channels, setChannels] = useState([])
     const { currentChannel } = useApp()
     const [error, setError] = useState("")
@@ -25,23 +23,6 @@ function GroupPage({id}) {
         }
 
     }
-
-    // when user clicks on diff groups in sidebar, get group data from api
-    // useEffect(()=>{
-    //     async function getGroups(){
-    //         try{
-    //             await axios.get(`/group/${id}`).then(res => {
-    //                 setGroupData(res.data)
-    //             })
-    //             setLoading(false)
-    //         }catch(err){
-    //             console.log(err)
-    //             // setLoading(false)
-    //         }
-    //     }
-    //     getGroups()
-        
-    // }, [id])
 
     useEffect(() => {
         const unsubscribe = db.collection("groups").doc(id).collection("channels").onSnapshot(snapshot => {
@@ -68,7 +49,7 @@ function GroupPage({id}) {
             ))}
             </div>
             <div className="channelContent">
-            
+            { !currentChannel && <h2>Welcome to {name} </h2> }
            {currentChannel && <ChannelPage id={currentChannel} group_id={id} />}
             </div>
         </div>

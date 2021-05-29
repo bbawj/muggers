@@ -8,9 +8,10 @@ function Group({name, id}){
     const { currentGroup, setCurrentGroup, setCurrentChannel } = useApp()
      
     return(
-        <div className={`sidebar__groups ${(currentGroup ===id) && 'activeGroup' }`} onClick={ () => {
-            setCurrentGroup(id)
-            setCurrentChannel("")}
+        <div className={`sidebar__groups ${(currentGroup.id ===id) && 'activeGroup' }`} onClick={ () => {
+            setCurrentGroup({id: id, name:name})
+            setCurrentChannel("")
+            }
         }>
             <Avatar />
             <h2 style={{fontSize:"20px"}}>{name}</h2>

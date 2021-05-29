@@ -15,7 +15,7 @@ function Dashboard(){
         <div className="dashboard--main">
         <Sidebar />
         <div className="dashboard">
-            {currentGroup ? <GroupPage id={currentGroup}/> : <div className="homeFeed"><PostBox /><Feed /></div>}
+            {currentGroup ? <GroupPage name={currentGroup.name} id={currentGroup.id}/> : <div className="homeFeed"><PostBox /><Feed /></div>}
         </div>
         <FriendsList/>
         </div>

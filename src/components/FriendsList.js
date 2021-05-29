@@ -4,8 +4,7 @@ import { db } from '../firebase'
 import "../FriendList.css"
 import FormDialog from "./FormDialog"
 import Friend from './Friend'
-
-
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 function FriendsList() {
 
@@ -29,6 +28,7 @@ function FriendsList() {
     return (
         <div className="friendlist">
             <div className="friendlist-header">
+                <EmojiPeopleIcon />
                 <h2>Mugger List</h2>
                 <FormDialog type="add" icon="Add Friend" title="ADD FRIEND" text="You can add a friend with their username. Case sensitive!" />
             </div>

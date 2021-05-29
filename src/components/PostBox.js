@@ -42,13 +42,12 @@ function PostBox() {
             setPostMessage("");
         }
     }
-
     return (
         
         <div className="postbox">
             
-                <TextField multiline value={postMessage} onChange={(e) => setPostMessage(e.target.value)} rows={3}
-                type="text" inputProps={{maxLength: 140}} placeholder="What you mugging?"/>
+                <TextField multiline value={postMessage} onChange={(e) => setPostMessage(e.target.value)} 
+                type="text" inputProps={{maxLength: 140, rows:3, cols:50}} placeholder="What you mugging?"/>
                     <div className="postbox--button--container">
                         <Button onClick={sendPost} variant="contained" color="primary" className="postbox--button" endIcon={<Icon>send</Icon>} type="submit">
                             Post

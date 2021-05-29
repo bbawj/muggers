@@ -32,6 +32,7 @@ function ChannelPage({id, group_id}) {
         <div className="newSheet">
             <Button onClick={addSheet} >Start mugging</Button>
         </div>
+
             {channelInfo && channelInfo.map(sheet => {
                 return <Mugsheet id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
                 }
