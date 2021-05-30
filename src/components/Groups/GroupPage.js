@@ -54,7 +54,7 @@ function GroupPage({id, name}) {
             </div>
             <div className="channelContent">
             { !currentChannel && <div><h2>Welcome to {name}</h2></div> }
-            <InviteModal group={name} />
+            <InviteModal group_name={name} group_id={id} />
            {currentChannel && <ChannelPage id={currentChannel} group_id={id} />}
             </div>
         </div>

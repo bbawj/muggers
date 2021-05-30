@@ -26,7 +26,10 @@ function Username() {
                 id: currentUser.uid
             } )
             batch.set(db.collection('users').doc(currentUser.uid), {
-                username: inputUsername
+                username: inputUsername,
+                friend_req_sent: [],
+                friend_req_rec: [],
+                group_invite_rec: []
             })
             batch.set(db.collection("friends").doc(inputUsername), {
                 lastPost:"",

@@ -44,8 +44,9 @@ function FormDialog(props) {
                                 receiver: inputRef.current.value,
                                 created_at: firebase.firestore.FieldValue.serverTimestamp()
                             })
-                            await db.collection("users").doc(currentUser.uid).set({friend_req_sent: [inputRef.current.value]}, {merge:true}
-                                ).then(db.collection("users").doc(doc.data().id).set({friend_req_rec: [currentUser.displayName]}, {merge:true}))
+                            await db.collection("users").doc(currentUser.uid).update({friend_req_sent: firebase.firestore.FieldValue.arrayUnion(inputRef.current.value)
+                            }).then(db.collection("users").doc(doc.data().id).update({friend_req_rec: firebase.firestore.FieldValue.arrayUnion(currentUser.displayName)}))
+
                             setMessage("Friend request sent!")
                         }else{
                             setMessage("You have already sent a request")
