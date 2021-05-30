@@ -30,7 +30,7 @@ function GroupPage({id, name}) {
         })
         return unsubscribe
     }, [id])
-    console.log(channels)
+
     return (
         <div className="groupPage">
             <Snackbar anchorOrigin={{ vertical:'top', horizontal:'center'}} open={Boolean(error)} autoHideDuration={6000} onClose={() => setError("")}>

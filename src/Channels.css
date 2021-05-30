@@ -87,7 +87,12 @@
   display: flex;
   align-items: center;
 }
-
+.taskContainer .clearIcon {
+  visibility: hidden;
+}
+.taskContainer:hover .clearIcon {
+  visibility: visible;
+}
 .newSheet {
   display: flex;
   justify-content: center;
@@ -99,4 +104,15 @@
 .newSheet ::placeholder {
   color: #474a4e;
   font-size: 20px;
+}
+
+.sheetHeader {
+  display: flex;
+  align-items: center;
+}
+.mugsheet .deleteIcon {
+  visibility: hidden;
+}
+.mugsheet:hover .deleteIcon {
+  visibility: visible;
 }

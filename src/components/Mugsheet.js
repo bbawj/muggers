@@ -9,11 +9,12 @@ import AddIcon from '@material-ui/icons/Add';
 import { v4 as uuidv4 } from 'uuid';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-import DeleteIcon from '@material-ui/icons/Delete';
+import ClearIcon from '@material-ui/icons/Clear';
 import firebase from "firebase/app";
 import { DragIndicator } from '@material-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import CompletedUsers from "./CompletedUsers"
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
     input: {
@@ -22,12 +23,13 @@ const useStyles = makeStyles({
   });
   
 function Mugsheet({id, channelId, tasks, title, groupId}) {
+    
+
     const classes = useStyles()
     const {currentUser} = useAuth()
     const [newtask, setNewTask] = useState("")
-    const [newTitle, setNewTitle] = useState(title)
+    const [newTitle, setNewTitle] = useState("")
     const [error , setError] = useState(false)
-    const [hidden , setHidden] = useState([])
     const docRef = db.collection("groups").doc(groupId).collection("channels").doc(channelId)
                                         .collection("mugSheets").doc(id)
 
@@ -61,6 +63,7 @@ function Mugsheet({id, channelId, tasks, title, groupId}) {
     function handleAdd(e){
         if (e.target.name === "addTitle"){
             docRef.update({title: newTitle}).catch(() => setError(true))
+            
         }else{
             if(newtask){
                 const items = Array.from(tasks)
@@ -90,13 +93,14 @@ function Mugsheet({id, channelId, tasks, title, groupId}) {
         docRef.update({tasks: firebase.firestore.FieldValue.arrayRemove(tasks[pos])})
         .catch((err) => setError(true))
     }
-    function handleIcon(e){
-        const temp = Array.from(hidden)
-        const i = temp.indexOf(e.currentTarget.name)
-        temp.splice(i, 1) 
-        setHidden(temp)
+    //delete sheet logic
+    function handleDeleteSheet(){
+        docRef.delete()
     }
-
+    // reset title state when new sheet mounts
+    useEffect(() => {
+        setNewTitle(title)
+    },[title])
 
     return (
         <div className="mugsheet">
@@ -105,8 +109,13 @@ function Mugsheet({id, channelId, tasks, title, groupId}) {
           You may not be up to date. Please refresh your page.
         </Alert>
       </Snackbar>
+      <div className="sheetHeader">
         <InputBase className="title" name="addTitle" classes={{input: classes.input}} style={{width:"100%", padding:"10px",fontSize:"26px"}} 
                     autoComplete="off" onBlur={handleAdd} onChange={handleChangeNew} value={newTitle} placeholder="Title" />
+            <IconButton onClick={handleDeleteSheet}>
+            <DeleteIcon className="deleteIcon" />
+            </IconButton>
+        </div>
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="tasks">
                     {(provided) => (
@@ -114,18 +123,14 @@ function Mugsheet({id, channelId, tasks, title, groupId}) {
                         {tasks.map(({id, text,completed_by}, index) => {
                         return (
                             
-                            <Draggable key={id} draggableId={id} index={index}>
+                            <Draggable key={id} draggableId={id} index={index} >
                             {(provided) => (
-                                <li onMouseOut={handleIcon} onMouseOver={()=> setHidden(prev => [...prev, id])} className="taskContainer" ref={provided.innerRef} {...provided.draggableProps}>
+                                <li className="taskContainer" ref={provided.innerRef} {...provided.draggableProps}>
                                 <div {...provided.dragHandleProps}><DragIndicator/></div>
-                                <Checkbox checked={completed_by.includes(currentUser.uid)} name={index.toString()} onChange={handleCheck} style={{color:"white"}} />                       
-                                <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={index.toString()} onChange={handleChange} autoComplete="off"/>
-                                <IconButton name={id}  onClick={e => {
-                                    handleIcon(e)
-                                    handleDelete(e)
-                                }}
-                                onMouseOut={handleIcon} >
-                                <DeleteIcon name={id} style={hidden.includes(id) ? {visibility:"visible"} : {visibility:"hidden"}} />
+                                <Checkbox checked={completed_by.includes(currentUser.uid)} name={id} onChange={handleCheck} style={{color:"white"}} />                       
+                                <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={id} onChange={handleChange} autoComplete="off"/>
+                                <IconButton name={id} className="clearIcon"  onClick={handleDelete}>
+                                <ClearIcon />
                                 </IconButton>
                                 {completed_by.length && <CompletedUsers users={completed_by}/> }
                                 </li>

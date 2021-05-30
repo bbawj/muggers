@@ -19,21 +19,24 @@ function ChannelPage({id, group_id}) {
         })
     }
     useEffect(() => {
-        const unsubscribe = db.collection("groups").doc(group_id).collection("channels").doc(id).collection("mugSheets").onSnapshot(snapshot =>{
+        const unsubscribe = db.collection("groups").doc(group_id).collection("channels").doc(id).collection("mugSheets").orderBy("created_at", "desc").onSnapshot(snapshot =>{
             setChannelInfo(snapshot.docs.map(doc=> {
                 return {id:doc.id, ...doc.data()}
             }))
         })
         return unsubscribe
     }, [id])
-    
+
     return (
         <div className="channelPage">
         <div className="newSheet">
             <Button onClick={addSheet} >Start mugging</Button>
         </div>
-
-            {channelInfo && channelInfo.map(sheet => {
+            {channelInfo && channelInfo.filter(obj => obj.pinned===true).map(sheet => {
+                return <Mugsheet id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
+                }
+            )}
+            {channelInfo && channelInfo.filter(obj => obj.pinned===false).map(sheet => {
                 return <Mugsheet id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
                 }
             )}

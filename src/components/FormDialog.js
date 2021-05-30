@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CloseIcon from '@material-ui/icons/Close';
 
 function FormDialog(props) {
     const [open, setOpen] = useState(false);
@@ -75,7 +76,10 @@ function FormDialog(props) {
         <div>
             { clickable }
             <Dialog width="lg" open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
+            <div className="form-header">
+                <DialogTitle id="form-dialog-title">{props.title} </DialogTitle>
+                <CloseIcon onClick={handleClose} className="closeButton" />
+                </div>
                 <DialogContent>
                 <DialogContentText>
                     {props.text}
