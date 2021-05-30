@@ -1,11 +1,11 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 import "../Dashboard.css"
-import PostBox from "./PostBox";
-import FriendsList from "./FriendsList";
-import Feed from "./Feed";
+import PostBox from "./Feed/PostBox";
+import FriendsList from "./Friendlist/FriendsList";
+import Feed from "./Feed/Feed";
 import { useApp } from "../contexts/AppContext"
-import GroupPage from "./GroupPage";
+import GroupPage from "./Groups/GroupPage";
 
 function Dashboard(){
 

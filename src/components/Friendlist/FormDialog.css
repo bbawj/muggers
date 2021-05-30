@@ -1,0 +1,35 @@
+.MuiDialog-root {
+  font-family: Roboto;
+  font-weight: 500;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeButton {
+  cursor: pointer;
+  margin-right: 20px;
+}
+.dialog .MuiPaper-root {
+  background-color: var(--bg);
+  color: white;
+}
+.inviteFriend {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.inviteFriend > .MuiButton-outlined {
+  color: #44b700;
+  border-color: #44b700;
+}
+
+.inviteFriend > .MuiButton-root:hover {
+  color: white;
+  background-color: #44b700;
+  fill: #44b700;
+}

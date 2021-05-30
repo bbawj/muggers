@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Post from './Post'
-import { db } from "../firebase"
-import {useAuth} from "../contexts/AuthContext"
+import { db } from "../../firebase"
+import {useAuth} from "../../contexts/AuthContext"
 
 function Feed() {
 

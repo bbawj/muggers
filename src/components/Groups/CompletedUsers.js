@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 import { Tooltip } from '@material-ui/core';
 
 function CompletedUsers({users}) {
@@ -16,11 +16,9 @@ function CompletedUsers({users}) {
                 const promises = await Promise.all(reads)
                 setInfo(promises.map(doc => doc.data()))
                 setLoading(false)
-            }catch{err => {
+            }catch (err) {
                 console.log(err)
             }}
-            
-        }
         getCompletedUsers()
     }, [])
 

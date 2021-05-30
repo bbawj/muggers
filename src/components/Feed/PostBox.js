@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { db } from "../firebase"
+import { db } from "../../firebase"
 import firebase from "firebase/app";
-import { useAuth } from "../contexts/AuthContext"
-import "../PostBox.css"
+import { useAuth } from "../../contexts/AuthContext"
+import "./PostBox.css"
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';

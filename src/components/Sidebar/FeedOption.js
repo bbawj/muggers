@@ -1,7 +1,7 @@
 import React from 'react'
-import "../Sidebar.css"
+import "./Sidebar.css"
 import HomeIcon from '@material-ui/icons/Home';
-import { useApp } from "../contexts/AppContext"
+import { useApp } from "../../contexts/AppContext"
 
 function FeedOption() {
 

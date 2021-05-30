@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../Navbar.css"
-import { useAuth } from "../contexts/AuthContext"
+import "./Navbar.css"
+import { useAuth } from "../../contexts/AuthContext"
 import Avatar from '@material-ui/core/Avatar';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {TestDropdownMenu} from "./DropdownMenu"
@@ -9,7 +9,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {Link, useHistory} from "react-router-dom"
 import Notifications from "./Notifications"
 import MenuItem from '@material-ui/core/MenuItem';
-import Bean from "../bean.png"
+import Bean from "../../bean.png"
 
 function NavBar(){
     const {currentUser} = useAuth()

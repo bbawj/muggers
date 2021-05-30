@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
-import "../FormDialog.css"
-import { db } from "../firebase"
+import "./FormDialog.css"
+import { db } from "../../firebase"
 import firebase from "firebase/app";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';

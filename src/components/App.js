@@ -2,16 +2,16 @@ import React from "react";
 import "../App.css";
 import { AuthProvider } from "../contexts/AuthContext";
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
-import NavBar from "./NavBar";
+import NavBar from "./NavBar/NavBar";
 import Home from "./Home";
-import Signup from './Signup';
-import Login from "./Login";
+import Signup from './AuthPages/Signup';
+import Login from "./AuthPages/Login";
 import PrivateRoute from "./PrivateRoute";
 import {ReRoute, ReRouteUsername} from "./ReRoute"
-import ForgotPassword from "./ForgotPassword";
-import UpdateProfile from "./UpdateProfile";
+import ForgotPassword from "./AuthPages/ForgotPassword";
+import UpdateProfile from "./AuthPages/UpdateProfile";
 import Dashboard from "./Dashboard";
-import Username from "./Username";
+import Username from "./AuthPages/Username";
 import { AppProvider } from "../contexts/AppContext";
 
 function App() {

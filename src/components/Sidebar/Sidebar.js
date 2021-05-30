@@ -1,5 +1,5 @@
 import React from "react";
-import "../Sidebar.css";
+import "./Sidebar.css";
 import StudyGroupsOption from "./StudyGroupsOption";
 import FeedOption from "./FeedOption"
 

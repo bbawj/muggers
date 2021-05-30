@@ -11,10 +11,10 @@ export function AppProvider( {children} ) {
 
     const [currentGroup, setCurrentGroup] = useState("")
     const [currentChannel, setCurrentChannel] = useState("")
-    const currentTest = useRef("")
+    const [groupMembers, setGroupMembers ] = useState([])
 
     const value = {
-        currentGroup, setCurrentGroup, currentChannel, setCurrentChannel, currentTest
+        currentGroup, setCurrentGroup, currentChannel, setCurrentChannel, setGroupMembers,groupMembers
     }
     return (
         <AppContext.Provider value={value}>

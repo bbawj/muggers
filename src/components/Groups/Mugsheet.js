@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import firebase from "firebase/app";
+import {db} from "../../firebase"
+import { useAuth } from '../../contexts/AuthContext';
+import CompletedUsers from "./CompletedUsers"
+import "./Channels.css"
 import Checkbox from '@material-ui/core/Checkbox';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import "../Channels.css"
 import { IconButton, InputBase } from '@material-ui/core';
-import {db} from "../firebase"
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
 import { v4 as uuidv4 } from 'uuid';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import ClearIcon from '@material-ui/icons/Clear';
-import firebase from "firebase/app";
 import { DragIndicator } from '@material-ui/icons';
-import { useAuth } from '../contexts/AuthContext';
-import CompletedUsers from "./CompletedUsers"
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
@@ -121,7 +121,7 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
         <InputBase className="title" name="addTitle" classes={{input: classes.input}} style={{width:"100%", padding:"10px",fontSize:"26px"}} 
                     autoComplete="off" onBlur={handleAdd} onChange={handleChangeNew} value={newTitle} placeholder="Title" />
             <IconButton onClick={handlePin} className={`${pinned && 'pinnedSheet'}`} >
-            <span class="material-icons">push_pin</span>
+            <span className="material-icons">push_pin</span>
             </IconButton>
             <IconButton onClick={handleDeleteSheet}>
             <DeleteIcon className="deleteIcon" />

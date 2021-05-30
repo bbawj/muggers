@@ -1,6 +1,6 @@
 import { Avatar } from '@material-ui/core'
 import React from 'react'
-import "../FriendList.css"
+import "./FriendList.css"
 
 function Friend(props) {
 

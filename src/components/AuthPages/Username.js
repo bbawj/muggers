@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
-import "../Signup.css"
-import { useAuth } from "../contexts/AuthContext"
+import "./Signup.css"
+import { useAuth } from "../../contexts/AuthContext"
 import { useHistory } from 'react-router-dom'
-import { db } from '../firebase'
+import { db } from '../../firebase'
 
 function Username() {
     const usernameRef = useRef()

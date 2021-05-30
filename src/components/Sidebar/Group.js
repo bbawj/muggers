@@ -1,16 +1,17 @@
 import React from "react";
-import "../Sidebar.css"
+import "./Sidebar.css"
 import { Avatar } from "@material-ui/core"
-import { useApp } from "../contexts/AppContext"
+import { useApp } from "../../contexts/AppContext"
 
-function Group({name, id}){
+function Group({name, id, members}){
 
-    const { currentGroup, setCurrentGroup, setCurrentChannel } = useApp()
-     
+    const { currentGroup, setCurrentGroup, setCurrentChannel, setGroupMembers } = useApp()
+
     return(
         <div className={`sidebar__groups ${(currentGroup.id ===id) && 'activeGroup' }`} onClick={ () => {
             setCurrentGroup({id: id, name:name})
             setCurrentChannel("")
+            setGroupMembers(members)
             }
         }>
             <Avatar />

@@ -1,6 +1,6 @@
 import React from 'react'
-import { useApp } from "../contexts/AppContext"
-import "../Channels.css"
+import { useApp } from "../../contexts/AppContext"
+import "./Channels.css"
 
 function Channels({name, id}) {
 

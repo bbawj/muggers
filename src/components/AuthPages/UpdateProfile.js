@@ -1,13 +1,13 @@
 import React, {useRef, useState} from 'react'
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from 'react-router-dom'
-import "../Signup.css"
+import "./Signup.css"
 import Avatar from '@material-ui/core/Avatar';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
-import { db, storage } from "../firebase"
+import { db, storage } from "../../firebase"
 
 function UpdateProfile() {
     const emailRef = useRef()

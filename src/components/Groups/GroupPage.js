@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import "../Channels.css"
+import "./Channels.css"
 import Channels from './Channels'
-import { useApp } from "../contexts/AppContext"
+import { useApp } from "../../contexts/AppContext"
 import ChannelPage from "./ChannelPage"
 import AddIcon from '@material-ui/icons/Add';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-import {db} from "../firebase"
+import {db} from "../../firebase"
+import { Button, Tooltip } from '@material-ui/core'
+import InviteModal from './InviteModal'
 
 function GroupPage({id, name}) {
 
@@ -41,15 +43,18 @@ function GroupPage({id, name}) {
             <div className="channelSidebar">
             <div className="channelSidebar-header">
             <h2>Channels</h2>
+            <Tooltip placement="top" title="Add Channel">
             <AddIcon style={{cursor:'pointer'}} onClick={addChannel} />
+            </Tooltip>
             </div>
-            <hr style={{border:"none" , borderTop:"1px solid black"}} />
+            <hr style={{border:"none" , borderTop:"1px solid #2C2F33"}} />
             {channels.map(channel => (
                 <Channels key={channel.id} id={channel.id} name={channel.name}/>
             ))}
             </div>
             <div className="channelContent">
-            { !currentChannel && <h2>Welcome to {name} </h2> }
+            { !currentChannel && <div><h2>Welcome to {name}</h2></div> }
+            <InviteModal group={name} />
            {currentChannel && <ChannelPage id={currentChannel} group_id={id} />}
             </div>
         </div>

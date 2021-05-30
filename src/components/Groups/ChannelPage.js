@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import firebase from "firebase/app";
 import Mugsheet from './Mugsheet'
-import "../Channels.css"
+import "./Channels.css"
 import Button from '@material-ui/core/Button';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 
 
 function ChannelPage({id, group_id}) {
@@ -33,11 +33,11 @@ function ChannelPage({id, group_id}) {
             <Button onClick={addSheet} >Start mugging</Button>
         </div>
             {channelInfo && channelInfo.filter(obj => obj.pinned===true).map(sheet => {
-                return <Mugsheet pinned id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
+                return <Mugsheet pinned id={sheet.id} key={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
                 }
             )}
             {channelInfo && channelInfo.filter(obj => obj.pinned===false).map(sheet => {
-                return <Mugsheet id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
+                return <Mugsheet id={sheet.id} key={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
                 }
             )}
         </div>

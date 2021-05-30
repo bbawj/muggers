@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '../contexts/AuthContext'
-import { db } from '../firebase'
-import "../FriendList.css"
+import { useAuth } from '../../contexts/AuthContext'
+import { db } from '../../firebase'
+import "./FriendList.css"
 import FormDialog from "./FormDialog"
 import Friend from './Friend'
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';

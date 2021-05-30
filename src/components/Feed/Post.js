@@ -1,8 +1,8 @@
 import { Avatar } from '@material-ui/core'
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { db } from '../firebase'
-import "../Post.css"
+import { db } from '../../firebase'
+import "./Post.css"
 
 function Post( {username, text} ) {
 

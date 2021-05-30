@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import Alert from '@material-ui/lab/Alert';
-import "../Signup.css"
-import { useAuth } from "../contexts/AuthContext"
+import "./Signup.css"
+import { useAuth } from "../../contexts/AuthContext"
 import { Link } from 'react-router-dom'
 
 function ForgotPassword() {
