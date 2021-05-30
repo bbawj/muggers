@@ -93,6 +93,9 @@
 .taskContainer:hover .clearIcon {
   visibility: visible;
 }
+.taskContainer > .MuiInputBase-root {
+  flex: 1;
+}
 .newSheet {
   display: flex;
   justify-content: center;
@@ -115,4 +118,14 @@
 }
 .mugsheet:hover .deleteIcon {
   visibility: visible;
+}
+.mugsheet .material-icons {
+  visibility: hidden;
+}
+.mugsheet:hover .material-icons {
+  visibility: visible;
+}
+.pinnedSheet .material-icons {
+  visibility: visible;
+  color: white;
 }

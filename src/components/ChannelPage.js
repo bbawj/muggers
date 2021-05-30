@@ -33,7 +33,7 @@ function ChannelPage({id, group_id}) {
             <Button onClick={addSheet} >Start mugging</Button>
         </div>
             {channelInfo && channelInfo.filter(obj => obj.pinned===true).map(sheet => {
-                return <Mugsheet id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
+                return <Mugsheet pinned id={sheet.id} tasks={sheet.tasks} title={sheet.title} channelId={id} groupId={group_id}/> 
                 }
             )}
             {channelInfo && channelInfo.filter(obj => obj.pinned===false).map(sheet => {

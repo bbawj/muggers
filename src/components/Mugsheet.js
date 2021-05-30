@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     }
   });
   
-function Mugsheet({id, channelId, tasks, title, groupId}) {
+function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
     
 
     const classes = useStyles()
@@ -97,6 +97,14 @@ function Mugsheet({id, channelId, tasks, title, groupId}) {
     function handleDeleteSheet(){
         docRef.delete()
     }
+    function handlePin(){
+        if (pinned){
+            docRef.update({pinned: false})
+        } else{
+            docRef.update({pinned: true})
+        }
+        
+    }
     // reset title state when new sheet mounts
     useEffect(() => {
         setNewTitle(title)
@@ -112,6 +120,9 @@ function Mugsheet({id, channelId, tasks, title, groupId}) {
       <div className="sheetHeader">
         <InputBase className="title" name="addTitle" classes={{input: classes.input}} style={{width:"100%", padding:"10px",fontSize:"26px"}} 
                     autoComplete="off" onBlur={handleAdd} onChange={handleChangeNew} value={newTitle} placeholder="Title" />
+            <IconButton onClick={handlePin} className={`${pinned && 'pinnedSheet'}`} >
+            <span class="material-icons">push_pin</span>
+            </IconButton>
             <IconButton onClick={handleDeleteSheet}>
             <DeleteIcon className="deleteIcon" />
             </IconButton>
@@ -127,12 +138,12 @@ function Mugsheet({id, channelId, tasks, title, groupId}) {
                             {(provided) => (
                                 <li className="taskContainer" ref={provided.innerRef} {...provided.draggableProps}>
                                 <div {...provided.dragHandleProps}><DragIndicator/></div>
-                                <Checkbox checked={completed_by.includes(currentUser.uid)} name={id} onChange={handleCheck} style={{color:"white"}} />                       
+                                <Checkbox checked={completed_by.includes(currentUser.uid)} name={index} onChange={handleCheck} style={{color:"white"}} />                       
                                 <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={id} onChange={handleChange} autoComplete="off"/>
+                                {completed_by.length && <CompletedUsers users={completed_by}/> }
                                 <IconButton name={id} className="clearIcon"  onClick={handleDelete}>
                                 <ClearIcon />
                                 </IconButton>
-                                {completed_by.length && <CompletedUsers users={completed_by}/> }
                                 </li>
                             )}
                             </Draggable>
