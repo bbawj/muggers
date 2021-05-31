@@ -3,6 +3,7 @@ import { db } from '../../firebase'
 import {useAuth} from "../../contexts/AuthContext"
 import FriendNotificationItem from "./FriendNotificationItem"
 import "./Navbar.css"
+import GroupNotificationItem from './GroupNotificationItem'
 
 function Notifications() {
 
@@ -16,14 +17,15 @@ function Notifications() {
         async function fetchNotifs(){
             try{
                 const ref = db.collection("notifications")
-                const query = await ref.where("receiver", "==", currentUser.displayName).orderBy("created_at", "desc").limit(5).get()
+                const query = await ref.where("receiver", "==", currentUser.uid).orderBy("created_at", "desc").limit(5).get()
 
                 setNotifications(query.docs.map( (doc) => {
                     return {
                         id: doc.id,
                         type: doc.data().type,
                         sender: doc.data().sender.username,
-                        sender_id: doc.data().sender.id
+                        sender_id: doc.data().sender.id,
+                        group_info: doc.data().group_info
                     }
                 }))
                 
@@ -40,8 +42,8 @@ function Notifications() {
             {notifications.map(notif => {
                     if (notif.type==="friend"){
                         return <FriendNotificationItem key={notif.id} id={notif.id} sender={notif.sender} sender_id={notif.sender_id} />
-                    } else{
-                        return null
+                    } else if (notif.type === "group") {
+                        return <GroupNotificationItem group_info={notif.group_info} key={notif.id} id={notif.id} sender={notif.sender} sender_id={notif.sender_id} />
                     }
                 })}
         </div>

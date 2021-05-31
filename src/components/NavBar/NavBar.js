@@ -34,7 +34,7 @@ function NavBar(){
         <p className="navbar-logo">muggers</p>
             {currentUser && <ul className="navbar-nav">
                 <TestDropdownMenu Icon={NotificationsIcon}>
-                    <MenuItem style={{width:"300px", whiteSpace:"unset", wordBreak:"break-all"}}>
+                    <MenuItem style={{width:"300px", whiteSpace:"unset"}}>
                         <Notifications />
                     </MenuItem>
                 </TestDropdownMenu>

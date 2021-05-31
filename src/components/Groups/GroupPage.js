@@ -7,8 +7,9 @@ import AddIcon from '@material-ui/icons/Add';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import {db} from "../../firebase"
-import { Button, Tooltip } from '@material-ui/core'
-import InviteModal from './InviteModal'
+import { Tooltip } from '@material-ui/core'
+import GroupHomePage from './GroupHomePage'
+
 
 function GroupPage({id, name}) {
 
@@ -53,9 +54,8 @@ function GroupPage({id, name}) {
             ))}
             </div>
             <div className="channelContent">
-            { !currentChannel && <div><h2>Welcome to {name}</h2></div> }
-            <InviteModal group_name={name} group_id={id} />
-           {currentChannel && <ChannelPage id={currentChannel} group_id={id} />}
+            {!currentChannel && <GroupHomePage id={id} name={name} />}
+            {currentChannel && <ChannelPage id={currentChannel} group_id={id} />}
             </div>
         </div>
     )

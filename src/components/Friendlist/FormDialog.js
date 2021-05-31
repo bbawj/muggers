@@ -41,7 +41,7 @@ function FormDialog(props) {
                                 type:"friend",
                                 read: false,
                                 sender: { id: currentUser.uid, username: currentUser.displayName },
-                                receiver: inputRef.current.value,
+                                receiver: doc.data().id,
                                 created_at: firebase.firestore.FieldValue.serverTimestamp()
                             })
                             await db.collection("users").doc(currentUser.uid).update({friend_req_sent: firebase.firestore.FieldValue.arrayUnion(inputRef.current.value)

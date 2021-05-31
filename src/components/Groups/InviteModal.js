@@ -15,21 +15,23 @@ import { useApp } from '../../contexts/AppContext';
 function InviteModal({group_name, group_id}) {
 
     const [open, setOpen ] =useState(false)
+    const [sent, setSent] = useState(false)
     const [friends, setFriends] = useState([])
     const { groupMembers } = useApp()
     const { currentUser } = useAuth()
 
     function sendInvite(e){
-        const friend_id = e.target.id
-        const payload = {group: group_id, sender: currentUser.displayName}
-        db.collection("users").doc(friend_id).update({group_invite_rec: firebase.firestore.FieldValue.arrayUnion(payload)})
-        db.doc('notifications').add({
+        const friend_id = e.currentTarget.id
+        console.log(friend_id)
+        db.collection('notifications').add({
             created_at: firebase.firestore.FieldValue.serverTimestamp(),
             read: false,
             receiver: friend_id,
+            sender: {id: currentUser.uid, username: currentUser.displayName},
             type: "group",
-            groupId: group_id
+            group_info: {id :group_id, name:group_name}
         })
+        setSent(true)
     }
 
     useEffect(() => {
@@ -49,13 +51,13 @@ function InviteModal({group_name, group_id}) {
 
     return (
         <div>
-            <Button onClick={()=> setOpen(true)}>Invite Friends</Button>
+            <Button variant="contained" color="primary" onClick={()=> setOpen(true)}>Invite Friends</Button>
             <Dialog open={open} onClose={() => setOpen(false)} className="dialog">
             <DialogTitle>
             <div style={{display:"flex", alignItems:"center"}}>
                 Invite Friends to {group_name}
                 <DialogActions>
-                    <IconButton onClick={() => setOpen(false)}><ClearIcon /></IconButton>
+                    <IconButton style={{color:"grey"}} onClick={() => setOpen(false)}><ClearIcon /></IconButton>
                 </DialogActions> 
                 </div>
             </DialogTitle>
@@ -64,7 +66,9 @@ function InviteModal({group_name, group_id}) {
                 <div className="inviteFriend" key={friend.username} >
                     <Avatar src={friend.photoURL}/>
                     <span style={{flex:"1", marginLeft:"10px"}}>{friend.username}</span>
-                    <Button className="inviteButton" id={friend.id} variant="outlined" onClick={sendInvite}>Invite</Button>
+                    {sent ? <Button style={{color:"grey"}} disabled>Sent</Button>:
+                    
+                    <Button className="inviteButton" id={friend.id} variant="outlined" onClick={sendInvite}>Invite</Button>}
                 </div>
             ))}
             {!friends && <span>There is no one to invite right now</span> } 

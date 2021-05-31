@@ -9,7 +9,7 @@
 }
 
 .navbar-logo {
-  font-size: 36px;
+  font-size: 26px;
   color: #83919a;
   align-items: center;
   margin-left: 20px;
@@ -32,8 +32,8 @@
 
 .icon-button > .MuiSvgIcon-root {
   fill: white;
-  height: 30px;
-  width: 30px;
+  width: calc(var(--nav-size) * 0.5);
+  height: calc(var(--nav-size) * 0.5);
 }
 
 .icon-button {
@@ -61,6 +61,12 @@
   color: white;
 }
 
+.icon-button .MuiAvatar-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 .dropdown {
   position: absolute;
   top: 58px;

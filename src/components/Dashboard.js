@@ -6,6 +6,7 @@ import FriendsList from "./Friendlist/FriendsList";
 import Feed from "./Feed/Feed";
 import { useApp } from "../contexts/AppContext"
 import GroupPage from "./Groups/GroupPage";
+import MemberList from "./Friendlist/MemberList";
 
 function Dashboard(){
 
@@ -17,7 +18,7 @@ function Dashboard(){
         <div className="dashboard">
             {currentGroup ? <GroupPage name={currentGroup.name} id={currentGroup.id}/> : <div className="homeFeed"><PostBox /><Feed /></div>}
         </div>
-        <FriendsList/>
+        { currentGroup ? <MemberList id={currentGroup.id} /> : <FriendsList/>}
         </div>
     )
 }
