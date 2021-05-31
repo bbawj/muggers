@@ -26,3 +26,8 @@
   font-size: 15px;
   white-space: pre-wrap;
 }
+
+.post__headerText {
+  display: flex;
+  align-items: center;
+}
