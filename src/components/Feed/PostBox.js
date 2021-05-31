@@ -21,6 +21,7 @@ function PostBox() {
             batch.set(postRef, {
                 id: postRef.id,
                 username: currentUser.displayName,
+                userId: currentUser.uid,
                 text: postMessage,
                 created_at: time
               })

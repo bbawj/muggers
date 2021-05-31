@@ -5,7 +5,7 @@ import { db } from '../../firebase'
 import moment from 'moment';
 import "./Post.css"
 
-function Post( {username, text, time} ) {
+function Post( {userId, username, text, time} ) {
 
     const [url, setUrl] = useState("")
     const [relTime, setRelTime] = useState("")
@@ -14,9 +14,11 @@ function Post( {username, text, time} ) {
         if (time){
             const date = time.toDate()
             setRelTime(moment(date).local().startOf('second').fromNow())
+        } else{
+            setRelTime("now")
         }
-        db.collection("users").where("username","==", username).limit(1).get().then(doc=>{
-            setUrl(doc.docs.map(doc => doc.data().photoURL)[0])
+        db.collection("users").doc(userId).get().then(doc=>{
+            setUrl(doc.data().photoURL)
         }).catch(err => {
             console.log(err)
         })

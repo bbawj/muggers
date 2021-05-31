@@ -30,7 +30,6 @@ function FriendNotificationItem({id, sender, sender_id}){
             const batch = db.batch()
             batch.update(db.collection("friends").doc(currentUser.displayName),{users: firebase.firestore.FieldValue.arrayUnion(sender_id)} )
             batch.update(db.collection("friends").doc(sender),{users: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)} )
-            batch.update(db.collection("users").doc(currentUser.uid),{friend_req_rec: firebase.firestore.FieldValue.arrayRemove(sender)} )
             batch.update(db.collection("users").doc(sender_id), {friend_req_sent: firebase.firestore.FieldValue.arrayRemove(currentUser.displayName)})
             batch.delete(db.collection("notifications").doc(id))
             await batch.commit()
@@ -44,7 +43,6 @@ function FriendNotificationItem({id, sender, sender_id}){
         // remove from request arrays; delete notification
         try{
             const batch = db.batch()
-            batch.update(db.collection("users").doc(currentUser.uid),{friend_req_rec: firebase.firestore.FieldValue.arrayRemove(sender)} )
             batch.update(db.collection("users").doc(sender_id), {friend_req_sent: firebase.firestore.FieldValue.arrayRemove(currentUser.displayName)})
             batch.delete(db.collection("notifications").doc(id))
             await batch.commit()
