@@ -30,6 +30,7 @@ function GroupNotificationItem({id, sender, sender_id, group_info}){
         try{
             const batch = db.batch()
             batch.update(db.collection("groups").doc(group_info.id), {members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)})
+            batch.update(db.collection('users').doc(currentUser.uid), {group_ids: firebase.firestore.FieldValue.arrayUnion(group_info.id)})
             batch.delete(db.collection("notifications").doc(id))
             await batch.commit()
             setMessage(`You have joined ${group_info.name}`)

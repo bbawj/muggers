@@ -12,6 +12,7 @@ import { Tooltip } from "@material-ui/core";
 
 function StudyGroupsOption(){
     const [studyGroups,setStudyGroups] = useState([]);
+    const [groupIds, setGroupIds] = useState([])
     const [error, setError] = useState("")
     const { currentUser } = useAuth()
 
@@ -20,23 +21,42 @@ function StudyGroupsOption(){
 
         if(newGroup){
             const newGroupRef = db.collection("groups").doc()
-            newGroupRef.set({
-                name: newGroup,
-                owner_id: currentUser.uid
-            }).then(newGroupRef.update({
-                members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
-            })).catch(err => setError("Error creating group"))
-        }
-
+            try{
+                const batch = db.batch()
+                batch.set(newGroupRef, {
+                    name: newGroup,
+                    owner_id: currentUser.uid
+                })
+                batch.update(newGroupRef, { members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)})
+                batch.update(db.collection('users').doc(currentUser.uid), {groupIds: firebase.firestore.FieldValue.arrayUnion(newGroupRef.id)})
+                batch.commit()
+            } catch{
+                setError("Error creating group")
+            }}
     }
     
     useEffect(()=> {
-        const unsubscribe = db.collection('groups').where("members","array-contains",currentUser.uid).onSnapshot(snapshot => {
+
+        const unsubscribe = db.collection('users').doc(currentUser.uid).onSnapshot(doc => {
             
-            setStudyGroups(snapshot.docs.map(doc => ( {studyGroupId: doc.id, studyGroupData: doc.data()})))
+            setGroupIds(doc.data().group_ids)
         })
+        
         return unsubscribe
     },[]) 
+
+    useEffect(() => {
+        async function getGroupInfo(){
+            try{
+                const reads = groupIds.map(id => db.collection('groups').doc(id).get())
+                const promises = await Promise.all(reads)
+                setStudyGroups(promises.map(doc => { return {id:doc.id, ...doc.data()}}))
+            }catch(err){
+                console.log(err)
+            }            
+        }
+        getGroupInfo()
+    }, [groupIds])
 
     return(
         <div className="studyGroups">
@@ -55,7 +75,7 @@ function StudyGroupsOption(){
             <hr style={{border:"none" , borderTop:"1px solid #2C2F33"}}/>
             <div className="groupsContainer">
             {studyGroups.map(group =>{
-                 return (<Group members={group.studyGroupData.members} key={group.studyGroupId} id={group.studyGroupId} name={group.studyGroupData.name}/>)})}
+                 return (<Group members={group.members} key={group.id} id={group.id} name={group.name}/>)})}
             </div>
          </div>
     )

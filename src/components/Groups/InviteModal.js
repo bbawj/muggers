@@ -22,9 +22,7 @@ function InviteModal({group_name, group_id}) {
 
     function sendInvite(e){
         const friend_id = e.currentTarget.id
-        db.collection('users').doc(friend_id).update({
-            group_invite: firebase.firestore.FieldValue.arrayUnion({senderId: currentUser.uid, groupId: group_id })
-        })
+
         db.collection('notifications').add({
             created_at: firebase.firestore.FieldValue.serverTimestamp(),
             read: false,
