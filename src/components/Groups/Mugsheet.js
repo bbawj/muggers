@@ -60,42 +60,64 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
         }
     }
     // add new task object to the array when input lose focus
-    function handleAdd(e){
-        if (e.target.name === "addTitle"){
-            docRef.update({title: newTitle}).catch(() => setError(true))
-            
-        }else{
-            if(newtask){
-                const items = Array.from(tasks)
-                const id  = uuidv4()
-                items.push({ complete: false, id: id, text: newtask , completed_by:[], created_by:currentUser.uid})
-                docRef.update({tasks: items}).catch(() => setError(true))
-                setNewTask("")
-            }  
+    async function handleAdd(e){
+        try{
+            if (e.target.name === "addTitle"){
+                await docRef.update({title: newTitle}).catch(() => setError(true))
+                
+            }else{
+                if(newtask){
+                    const items = Array.from(tasks)
+                    const completedRef = db.collection("tasks").doc()
+                    completedRef.set({sheet_id: id , completed_by: []})
+                    items.push({ complete: false, id: completedRef.id, text: newtask , completed_by:[], created_by:currentUser.uid})
+                    await docRef.update({tasks: items}).catch(() => setError(true))
+                    setNewTask("")
+                }  
+            }
+        }catch(err){
+            console.log(err)
+            setError(true)
         }
-        
     }
     //handle checkbox logic
     function handleCheck(e){
         const items = Array.from(tasks)
         if (e.target.checked){
             items[Number(e.target.name)].completed_by.push(currentUser.uid)
+            docRef.collection("tasks").doc(e.currentTarget.id).update({completed_by: firebase.firestore.arrayUnion(currentUser.uid)})
         } else if (items[Number(e.target.name)].completed_by.includes(currentUser.uid) && !e.target.checked){
             items[Number(e.target.name)].completed_by.pop(currentUser.uid)
+            docRef.collection("tasks").doc(e.currentTarget.id).update({completed_by: firebase.firestore.arrayRemove(currentUser.uid)})
         }
-        items[Number(e.target.name)].complete = e.target.checked
+        //items[Number(e.target.name)].complete = e.target.checked
+        
         docRef.update({tasks: items}).catch(() => setError(true))
     }
     //delete task logic
-    function handleDelete(e){
-        const temp = Array.from(tasks)
-        const pos = temp.map(el => el.id).indexOf(e.currentTarget.name)
-        docRef.update({tasks: firebase.firestore.FieldValue.arrayRemove(tasks[pos])})
-        .catch((err) => setError(true))
+    async function handleDelete(e){
+        try{
+            const temp = Array.from(tasks)
+            const pos = temp.map(el => el.id).indexOf(e.currentTarget.name)
+            await docRef.update({tasks: firebase.firestore.FieldValue.arrayRemove(tasks[pos])})
+            await db.collection("tasks").doc(e.currentTarget.id).delete()
+        }catch{
+            setError(true)
+        }       
     }
     //delete sheet logic
-    function handleDeleteSheet(){
-        docRef.delete()
+    async function handleDeleteSheet(){
+        try{
+            await docRef.delete()
+            const batch = db.batch()
+            const sheetTasks = await db.collection("tasks").where("sheet_id", "==", id).get()
+            sheetTasks.forEach(doc => {
+                batch.delete(doc.ref)
+            })
+            await batch.commit()
+        }catch{
+            setError(true)
+        }        
     }
     function handlePin(){
         if (pinned){
@@ -138,7 +160,7 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
                             {(provided) => (
                                 <li className="taskContainer" ref={provided.innerRef} {...provided.draggableProps}>
                                 <div {...provided.dragHandleProps}><DragIndicator/></div>
-                                <Checkbox checked={completed_by.includes(currentUser.uid)} name={index} onChange={handleCheck} style={{color:"white"}} />                       
+                                <Checkbox id={id} checked={completed_by.includes(currentUser.uid)} name={index} onChange={handleCheck} style={{color:"white"}} />                       
                                 <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={id} onChange={handleChange} autoComplete="off"/>
                                 {completed_by.length && <CompletedUsers users={completed_by}/> }
                                 <IconButton name={id} className="clearIcon"  onClick={handleDelete}>
