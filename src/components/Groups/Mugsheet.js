@@ -68,7 +68,7 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
             if(newtask){
                 const items = Array.from(tasks)
                 const id  = uuidv4()
-                items.push({ complete: false, id: id, text: newtask , completed_by:[]})
+                items.push({ complete: false, id: id, text: newtask , completed_by:[], created_by:currentUser.uid})
                 docRef.update({tasks: items}).catch(() => setError(true))
                 setNewTask("")
             }  
