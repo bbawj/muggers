@@ -68,11 +68,17 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
             }else{
                 if(newtask){
                     const items = Array.from(tasks)
-                    const completedRef = db.collection("tasks").doc()
-                    completedRef.set({sheet_id: id , completed_by: []})
-                    items.push({ complete: false, id: completedRef.id, text: newtask , completed_by:[], created_by:currentUser.uid})
+                    const id = uuidv4()
+                    items.push({ complete: false, id: id, text: newtask , completed_by:[], created_by:currentUser.uid})
                     await docRef.update({tasks: items}).catch(() => setError(true))
                     setNewTask("")
+                    await db.collection("groups").doc(groupId).collection("updates").add({
+                        type: "new task",
+                        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                        sheet_title: title,
+                        channel_id: channelId,
+                        user_id: currentUser.uid,
+                    });
                 }  
             }
         }catch(err){
@@ -81,18 +87,27 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
         }
     }
     //handle checkbox logic
-    function handleCheck(e){
-        const items = Array.from(tasks)
-        if (e.target.checked){
-            items[Number(e.target.name)].completed_by.push(currentUser.uid)
-            docRef.collection("tasks").doc(e.currentTarget.id).update({completed_by: firebase.firestore.arrayUnion(currentUser.uid)})
-        } else if (items[Number(e.target.name)].completed_by.includes(currentUser.uid) && !e.target.checked){
-            items[Number(e.target.name)].completed_by.pop(currentUser.uid)
-            docRef.collection("tasks").doc(e.currentTarget.id).update({completed_by: firebase.firestore.arrayRemove(currentUser.uid)})
-        }
-        //items[Number(e.target.name)].complete = e.target.checked
-        
-        docRef.update({tasks: items}).catch(() => setError(true))
+    async function handleCheck(e){
+        try{
+            const items = Array.from(tasks)
+            if (e.target.checked){
+                items[Number(e.target.name)].completed_by.push(currentUser.uid)
+                db.collection("groups").doc(groupId).collection("updates").add({
+                    type: "new complete",
+                    created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                    sheet_title: title,
+                    task_title: items[Number(e.target.name)].text,
+                    channel_id: channelId,
+                    user_id: currentUser.uid,
+                })
+            } else if (items[Number(e.target.name)].completed_by.includes(currentUser.uid) && !e.target.checked){
+                items[Number(e.target.name)].completed_by.pop(currentUser.uid)
+            }
+            await docRef.update({tasks: items})
+        }catch(err){
+            console.log(err)
+            setError(true)
+        }       
     }
     //delete task logic
     async function handleDelete(e){
@@ -100,7 +115,6 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
             const temp = Array.from(tasks)
             const pos = temp.map(el => el.id).indexOf(e.currentTarget.name)
             await docRef.update({tasks: firebase.firestore.FieldValue.arrayRemove(tasks[pos])})
-            await db.collection("tasks").doc(e.currentTarget.id).delete()
         }catch{
             setError(true)
         }       
@@ -109,12 +123,6 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
     async function handleDeleteSheet(){
         try{
             await docRef.delete()
-            const batch = db.batch()
-            const sheetTasks = await db.collection("tasks").where("sheet_id", "==", id).get()
-            sheetTasks.forEach(doc => {
-                batch.delete(doc.ref)
-            })
-            await batch.commit()
         }catch{
             setError(true)
         }        
@@ -161,8 +169,8 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
                                 <li className="taskContainer" ref={provided.innerRef} {...provided.draggableProps}>
                                 <div {...provided.dragHandleProps}><DragIndicator/></div>
                                 <Checkbox id={id} checked={completed_by.includes(currentUser.uid)} name={index} onChange={handleCheck} style={{color:"white"}} />                       
-                                <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={id} onChange={handleChange} autoComplete="off"/>
-                                {completed_by.length && <CompletedUsers users={completed_by}/> }
+                                <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={index} onChange={handleChange} autoComplete="off"/>
+                                {!(completed_by.length===0) && <CompletedUsers users={completed_by}/> }
                                 <IconButton name={id} className="clearIcon"  onClick={handleDelete}>
                                 <ClearIcon />
                                 </IconButton>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useApp } from "../../contexts/AppContext"
 import InviteModal from './InviteModal'
 import "./Channels.css"
 import Updates from './Updates'

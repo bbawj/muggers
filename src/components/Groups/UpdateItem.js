@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../../firebase'
 import "./Updates.css"
 
-function UpdateItem({type, userId, groupId, channelId, sheetTitle}) {
+function UpdateItem({type, userId, groupId, channelId, sheetTitle, taskTitle}) {
 
     const [text, setText] = useState("")
     const [url, setUrl] = useState("")
@@ -30,7 +30,13 @@ function UpdateItem({type, userId, groupId, channelId, sheetTitle}) {
                         await getChannelInfo()
                         setText(`${username} has created a new task in ${channelName}: ${sheetTitle}`)
                         break;
-                    
+
+                    case "new complete":
+                        await getSingleUserInfo()
+                        await getChannelInfo()
+                        setText(`${username} has completed ${taskTitle} in ${sheetTitle}`)
+                        break;
+                        
                     default:
                         break;
                 }
@@ -44,7 +50,7 @@ function UpdateItem({type, userId, groupId, channelId, sheetTitle}) {
     return (
         <div className="updateItem">
             <Avatar src={url}/>
-            <span>{text}</span>
+            <span className="updateItemText">{text}</span>
         </div>
     )
 }

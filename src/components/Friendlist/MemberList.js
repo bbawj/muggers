@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebase'
-import InviteModal from '../Groups/InviteModal'
 import Friend from './Friend'
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import "./FriendList.css"

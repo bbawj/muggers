@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css"
 import { useAuth } from "../../contexts/AuthContext"
 import Avatar from '@material-ui/core/Avatar';
@@ -16,6 +16,7 @@ function NavBar(){
     const {logout} = useAuth()
     const [error, setError] =useState("")
     const history = useHistory()
+    const [url, setUrl] = useState("")
 
     async function handleLogout(){
         setError("")
@@ -27,6 +28,9 @@ function NavBar(){
         }
     }
     
+    useEffect(() => {
+        setUrl(currentUser.photoURL)
+    }, [])
     
     return(
         <nav className="navbar">
@@ -38,7 +42,7 @@ function NavBar(){
                         <Notifications />
                     </MenuItem>
                 </TestDropdownMenu>
-                <TestDropdownMenu Icon={Avatar} src={currentUser.photoURL}>
+                <TestDropdownMenu Icon={Avatar} src={url}>
                     <MenuItem>
                         <AccountBoxIcon/>
                         <Link className="link" to="/update-profile">Update Profile</Link>

@@ -7,4 +7,9 @@
 .updateItem {
   display: flex;
   align-items: center;
+  padding: 10px;
+}
+
+.updateItemText {
+  padding-left: 10px;
 }

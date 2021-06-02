@@ -44,6 +44,8 @@ function Notifications() {
                         return <FriendNotificationItem key={notif.id} id={notif.id} sender={notif.sender} sender_id={notif.sender_id} />
                     } else if (notif.type === "group") {
                         return <GroupNotificationItem group_info={notif.group_info} key={notif.id} id={notif.id} sender={notif.sender} sender_id={notif.sender_id} />
+                    }else{
+                        return null
                     }
                 })}
         </div>
