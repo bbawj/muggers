@@ -42,7 +42,7 @@ function Username() {
             history.push("/dashboard")
          
         } catch(error) {
-            
+            console.log(error)
             setError("Failed to create username")
         }
         setLoading(false)

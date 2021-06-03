@@ -31,6 +31,10 @@
   line-height: 66px;
   color: white;
   margin-top: 20px;
+  @media all and (max-width: 480px) {
+    font-size: 10px;
+    background-color: white;
+  }
 }
 .signup-container h2 {
   color: white;
