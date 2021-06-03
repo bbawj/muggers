@@ -59,7 +59,6 @@ function UpdateItem({type, userId, groupId, channelId, sheetTitle, taskTitle, ti
             }catch(err){
                 console.log(err)
             }
-            console.log("count")
         }
         getData()
     }, [channelName])
