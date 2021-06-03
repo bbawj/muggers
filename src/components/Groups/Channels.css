@@ -51,8 +51,31 @@
   color: #99aab5;
   margin-top: 10px;
   margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
+.deleteChannelContainer {
+  align-items: center;
+}
+.deleteChannelContainer > .MuiPaper-root {
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+}
+.deleteChannel {
+  font-family: Roboto;
+  padding: 10px 20px 10px 20px;
+  background-color: var(--bg);
+  color: crimson;
+  cursor: pointer;
+}
+.deleteChannel:hover {
+  font-family: Roboto;
+  padding: 10px 20px 10px 20px;
+  background-color: crimson;
+  color: white;
+}
 .mugsheet {
   margin: 20px;
   background-color: var(--special);

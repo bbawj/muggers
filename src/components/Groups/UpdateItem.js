@@ -18,7 +18,12 @@ function UpdateItem({type, userId, groupId, channelId, sheetTitle, taskTitle}) {
 
     async function getChannelInfo(){
         const info = await db.collection("groups").doc(groupId).collection('channels').doc(channelId).get()
-        setChannelName(info.data().name)
+        
+        if (info.data() === undefined){
+            setChannelName("deleted")
+        }else{
+            setChannelName(info.data().name)
+        }
     }
 
     useEffect(() => {
@@ -45,7 +50,7 @@ function UpdateItem({type, userId, groupId, channelId, sheetTitle, taskTitle}) {
             }
         }
         getData()
-    })
+    }, [])
 
     return (
         <div className="updateItem">

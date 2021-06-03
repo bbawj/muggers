@@ -25,8 +25,8 @@ function CompletedUsers({users}) {
     return (
         <AvatarGroup>
             {!loading && info.map(user=>{ return (
-                <Tooltip title={user.username}>
-                <Avatar key={user.username} id={user.username} src={user.photoURL} />
+                <Tooltip title={user.username} key={user.username}>
+                <Avatar  id={user.username} src={user.photoURL} />
                 </Tooltip>
             )})}
         </AvatarGroup>

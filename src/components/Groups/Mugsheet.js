@@ -168,8 +168,8 @@ function Mugsheet({id, channelId, tasks, title, groupId, pinned}) {
                             {(provided) => (
                                 <li className="taskContainer" ref={provided.innerRef} {...provided.draggableProps}>
                                 <div {...provided.dragHandleProps}><DragIndicator/></div>
-                                <Checkbox id={id} checked={completed_by.includes(currentUser.uid)} name={index} onChange={handleCheck} style={{color:"white"}} />                       
-                                <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={index} onChange={handleChange} autoComplete="off"/>
+                                <Checkbox id={id} checked={completed_by.includes(currentUser.uid)} name={index.toString()} onChange={handleCheck} style={{color:"white"}} />                       
+                                <InputBase className="existingTask" classes={{input: classes.input}} defaultValue={text} name={index.toString()} onChange={handleChange} autoComplete="off"/>
                                 {!(completed_by.length===0) && <CompletedUsers users={completed_by}/> }
                                 <IconButton name={id} className="clearIcon"  onClick={handleDelete}>
                                 <ClearIcon />

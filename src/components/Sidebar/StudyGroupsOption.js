@@ -16,7 +16,7 @@ function StudyGroupsOption(){
     const [error, setError] = useState("")
     const { currentUser } = useAuth()
 
-    function handleAdd(){
+    async function handleAdd(){
         const newGroup = prompt("Create a new study group")
 
         if(newGroup){
@@ -25,11 +25,11 @@ function StudyGroupsOption(){
                 const batch = db.batch()
                 batch.set(newGroupRef, {
                     name: newGroup,
-                    owner_id: currentUser.uid
+                    owner_id: currentUser.uid,
+                    members: [currentUser.uid]
                 })
-                batch.update(newGroupRef, { members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)})
-                batch.update(db.collection('users').doc(currentUser.uid), {groupIds: firebase.firestore.FieldValue.arrayUnion(newGroupRef.id)})
-                batch.commit()
+                batch.update(db.collection('users').doc(currentUser.uid), {group_ids: firebase.firestore.FieldValue.arrayUnion(newGroupRef.id)})
+                await batch.commit()
             } catch{
                 setError("Error creating group")
             }}

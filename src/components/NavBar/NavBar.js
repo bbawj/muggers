@@ -29,12 +29,14 @@ function NavBar(){
     }
     
     useEffect(() => {
-        setUrl(currentUser.photoURL)
+        if (currentUser){
+            setUrl(currentUser.photoURL)
+        }
     }, [])
     
     return(
         <nav className="navbar">
-        <Avatar src={Bean} />
+        <Avatar src={Bean} style={{marginLeft:"10px"}} />
         <p className="navbar-logo">muggers</p>
             {currentUser && <ul className="navbar-nav">
                 <TestDropdownMenu Icon={NotificationsIcon}>

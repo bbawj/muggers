@@ -13,3 +13,8 @@
 .updateItemText {
   padding-left: 10px;
 }
+
+.noUpdates {
+  color: darkgray;
+  font-style: italic;
+}
