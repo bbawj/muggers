@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from '../../firebase';
 import firebase from "firebase/app";
 import "./Sidebar.css"
@@ -8,11 +8,12 @@ import { IconButton, Popover } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useAuth } from "../../contexts/AuthContext";
 
-function Group({name, id, members}){
+function Group({name, id, members, owner}){
 
     const { currentGroup, setCurrentGroup, setCurrentChannel, setGroupMembers } = useApp()
     const { currentUser } = useAuth()
     const [anchorEl, setAnchorEl] = useState(null)
+    const [isOwner, setIsOwner] = useState(false)
     const open = Boolean(anchorEl)
 
     async function handleDeleteChannel(){
@@ -25,6 +26,12 @@ function Group({name, id, members}){
         }  
     }
 
+    useEffect(() => {
+        if (owner===currentUser.uid){
+            setIsOwner(true)
+        }
+    }, [])
+
     return(
         <div className={`sidebar__groups ${(currentGroup.id ===id) && 'activeGroup' }`} >
         <div className="sidebar__groups-main" onClick={ () => {
@@ -33,9 +40,10 @@ function Group({name, id, members}){
             setGroupMembers(members)
             }
         }>
-            <Avatar style={{marginLeft:"10px"}} />
-            <h2 style={{fontSize:"20px",marginLeft:"10px",fontWeight:"550"}}>{name}</h2>
+            {/* <Avatar style={{marginLeft:"10px"}} /> */}
+            <h2 style={{fontSize:"20px",marginLeft:"20px",fontWeight:"550"}}>{name}</h2>
             </div>
+            <div className={`${!isOwner && 'groupMoreOptions-hide'}`}>
             <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
                 <MoreHorizIcon />
             </IconButton>
@@ -49,6 +57,7 @@ function Group({name, id, members}){
                 }}>
                 <span className='deleteChannel' onClick={handleDeleteChannel}>Delete Channel</span>  
             </Popover>
+            </div>
         </div>
     )
 }

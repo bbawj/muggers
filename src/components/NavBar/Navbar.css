@@ -13,6 +13,7 @@
   color: #83919a;
   align-items: center;
   margin-left: 20px;
+  cursor: pointer;
 }
 
 .navbar-nav {

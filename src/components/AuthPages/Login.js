@@ -42,7 +42,7 @@ function Login() {
             </form>
                 <Link className="forgot-password" to="/forgot-password">Forgot Password?</Link>
             <div>
-                Need an account? <Link to="/signup">Sign Up.</Link>
+                Need an account? <Link style={{textDecoration:"underline"}} to="/signup">Sign Up.</Link>
             </div>
             
         </div>

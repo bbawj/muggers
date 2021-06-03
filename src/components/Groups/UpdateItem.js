@@ -1,45 +1,56 @@
 import { Avatar } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebase'
+import moment from 'moment';
 import "./Updates.css"
 
-function UpdateItem({type, userId, groupId, channelId, sheetTitle, taskTitle}) {
+function UpdateItem({type, userId, groupId, channelId, sheetTitle, taskTitle, time}) {
 
     const [text, setText] = useState("")
     const [url, setUrl] = useState("")
     const [username, setUserName] = useState("")
     const [channelName, setChannelName] = useState("")
+    const [relTime, setRelTime] = useState("")
 
     async function getSingleUserInfo(){
         const info = await db.collection("users").doc(userId).get()
-        setUrl(info.data().photoURL)
-        setUserName(info.data().username)
+        await setUrl(info.data().photoURL)
+        await setUserName(info.data().username)
+        return
     }
 
     async function getChannelInfo(){
         const info = await db.collection("groups").doc(groupId).collection('channels').doc(channelId).get()
         
         if (info.data() === undefined){
-            setChannelName("deleted")
+            await setChannelName("deleted")
         }else{
-            setChannelName(info.data().name)
+            await setChannelName(info.data().name)
         }
+        return
     }
 
     useEffect(() => {
+        if (time){
+            const date = time.toDate()
+            setRelTime(moment(date).local().startOf('second').fromNow())
+        } else{
+            setRelTime("now")
+        }
+        
         async function getData(){
             try{
                 switch (type) {
                     case "new task":
                         await getSingleUserInfo()
                         await getChannelInfo()
-                        setText(`${username} has created a new task in ${channelName}: ${sheetTitle}`)
+                        setText(`created a new task in ${channelName}: ${sheetTitle}`)
                         break;
 
                     case "new complete":
                         await getSingleUserInfo()
                         await getChannelInfo()
-                        setText(`${username} has completed ${taskTitle} in ${sheetTitle}`)
+                        setText(`completed ${taskTitle} in ${sheetTitle}`)
                         break;
                         
                     default:
@@ -48,14 +59,20 @@ function UpdateItem({type, userId, groupId, channelId, sheetTitle, taskTitle}) {
             }catch(err){
                 console.log(err)
             }
+            console.log("count")
         }
         getData()
-    }, [])
+    }, [channelName])
 
     return (
         <div className="updateItem">
             <Avatar src={url}/>
-            <span className="updateItemText">{text}</span>
+            <div className="updateItem-body">
+            <div className="updateItem-header">
+                <span>{username} <span className="updateItem-time">{relTime}</span></span>
+            </div>
+            {text && <span className="updateItemText">{text}</span>}
+            </div>
         </div>
     )
 }

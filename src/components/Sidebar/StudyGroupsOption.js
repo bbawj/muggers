@@ -75,7 +75,7 @@ function StudyGroupsOption(){
             <hr style={{border:"none" , borderTop:"1px solid #2C2F33"}}/>
             <div className="groupsContainer">
             {studyGroups.map(group =>{
-                 return (<Group members={group.members} key={group.id} id={group.id} name={group.name}/>)})}
+                 return (<Group members={group.members} owner={group.owner_id} key={group.id} id={group.id} name={group.name}/>)})}
             </div>
          </div>
     )

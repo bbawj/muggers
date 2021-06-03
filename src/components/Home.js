@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../Home.css";
 import homePic from "../sticker.webp";
 
@@ -14,8 +15,8 @@ function Home(){
             <p>View and brag about your mugging progress.</p>
             </div>
             <div className="homeButtons">
-            <button>Sign Up</button>
-            <button>Login</button>
+            <button><Link to="/signup">Sign Up</Link></button>
+            <button><Link to="/login">Login</Link></button>
             </div>
         </div>
         <img className="homePic" src={homePic} alt="home-pic"/>

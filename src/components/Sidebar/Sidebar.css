@@ -85,3 +85,7 @@
 .activeGroup {
   color: var(--special);
 }
+
+.groupMoreOptions-hide {
+  display: none;
+}

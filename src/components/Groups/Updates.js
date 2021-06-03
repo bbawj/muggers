@@ -33,7 +33,8 @@ function Updates({id}) {
     return (
         <div className="updateContainer">
             {(updates.length===0) && <span className="noUpdates">There are no recent updates</span>}
-            {!(updates.length===0) && updates.map(item => <UpdateItem key={item.id} taskTitle={item.task_title} type={item.type} userId={item.user_id} groupId={id} channelId={item.channel_id} sheetTitle={item.sheet_title} />)}
+            {!(updates.length===0) && updates.map(item => <UpdateItem key={item.id} taskTitle={item.task_title} type={item.type} 
+            userId={item.user_id} groupId={id} channelId={item.channel_id} sheetTitle={item.sheet_title} time={item.created_at} />)}
         </div>
     )
 }

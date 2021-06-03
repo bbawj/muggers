@@ -18,3 +18,16 @@
   color: darkgray;
   font-style: italic;
 }
+
+.updateItem-header {
+  display: flex;
+  margin-left: 10px;
+}
+.updateItem-body {
+  display: flex;
+  flex-direction: column;
+}
+.updateItem-time {
+  font-size: 10px;
+  color: darkgray;
+}

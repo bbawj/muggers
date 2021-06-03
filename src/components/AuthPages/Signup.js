@@ -45,8 +45,8 @@ function Signup() {
                 <button disabled={loading} type="submit">Sign Up</button>
             </form>
             
-            <div className="signup-login">
-                Already have an account? <Link to="/login">Log In.</Link>
+            <div >
+                Already have an account? <Link style={{textDecoration:"underline"}} to="/login">Log In.</Link>
             </div>
             
         </div>
