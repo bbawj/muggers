@@ -11,7 +11,6 @@ import "./Navbar.css"
 
 
 function GroupNotificationItem({id, sender, sender_id, group_info}){
-    console.log(group_info)
 
     const [url, setUrl] = useState("")
     const [message, setMessage] = useState("")
