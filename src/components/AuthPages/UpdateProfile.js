@@ -99,8 +99,8 @@ function UpdateProfile() {
             {error && (<Alert severity="error">{error}</Alert>)}
             <form onSubmit={handleSubmit}>
                 <input className="email" type="text" placeholder="Email" ref={emailRef} required defaultValue={currentUser.email}/>
-                <input className="password" type="password" placeholder="Password: Leave blank to keep the same" ref={passwordRef}  />
-                <input className="password" type="password" placeholder="Confirm Password: Leave blank to keep the same" ref={passwordConfirmRef} />
+                <input className="password" type="password" placeholder="Password: Blank to keep same" ref={passwordRef}  />
+                <input className="password" type="password" placeholder="Confirm Password" ref={passwordConfirmRef} />
                 <button disabled={loading} type="submit">Update</button>
             </form>
             

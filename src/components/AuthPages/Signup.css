@@ -31,10 +31,7 @@
   line-height: 66px;
   color: white;
   margin-top: 20px;
-  @media all and (max-width: 480px) {
-    font-size: 10px;
-    background-color: white;
-  }
+  text-align: center;
 }
 .signup-container h2 {
   color: white;
@@ -50,14 +47,12 @@
   justify-content: center;
 }
 
-::placeholder {
+.password {
   color: rgba(34, 40, 49, 0.5);
   font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
   font-size: 26px;
-  align-items: center;
-  line-height: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .email {
@@ -72,7 +67,8 @@
 }
 
 .password::placeholder {
-  font-size: 26px;
+  /* font-size: 26px; */
+  text-overflow: ellipsis;
 }
 
 .signup-container button {
@@ -114,7 +110,8 @@
 
 .avatar > .MuiIconButton-root {
   justify-content: center;
-  align-self: flex-end;
   height: 40px;
   width: 40px;
+  left: 65%;
+  position: absolute;
 }
