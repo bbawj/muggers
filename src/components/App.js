@@ -3,7 +3,6 @@ import "../App.css";
 import { AuthProvider } from "../contexts/AuthContext";
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import NavBar from "./NavBar/NavBar";
-import Home from "./Home";
 import Signup from './AuthPages/Signup';
 import Login from "./AuthPages/Login";
 import PrivateRoute from "./PrivateRoute";
@@ -23,7 +22,7 @@ function App() {
         <AuthProvider>
         <NavBar />
           <Switch>
-          <ReRoute exact path="/" component={Home}/>
+          <ReRoute exact path="/"/>
           <Route path="/login" component={Login} />
             <PrivateRoute path="/update-profile" component={UpdateProfile}/>
             <ReRouteUsername path="/username" component={Username}/>

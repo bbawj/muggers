@@ -13,7 +13,7 @@ export function ReRoute({component: Component, ...rest}) {
                 if (currentUser){
                     return <Redirect to="/dashboard" />
                 } else{
-                    return <Component {...props} />
+                    return <Redirect to="/login" />
                 }
                 
             }}

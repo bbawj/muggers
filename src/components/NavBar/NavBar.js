@@ -37,7 +37,7 @@ function NavBar(){
     return(
         <nav className="navbar">
         <Avatar src={Bean} style={{marginLeft:"10px"}} />
-        <p className="navbar-logo"><Link to="/">muggers</Link></p>
+        <p className="navbar-logo"><Link to="/dashboard">muggers</Link></p>
             {currentUser && <ul className="navbar-nav">
                 <TestDropdownMenu Icon={NotificationsIcon}>
                     <MenuItem style={{width:"300px", whiteSpace:"unset"}}>
