@@ -8,3 +8,6 @@ Features
 3. Invite friends to groups
 4. Collaborate on task sheets within groups
 5. Receive updates when someone creates a new task or completes one
+
+Motivation
+Project-based learning for the React framework
